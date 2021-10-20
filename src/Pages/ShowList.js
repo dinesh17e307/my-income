@@ -140,9 +140,11 @@ get(child(dbRef, `${queryParams['?user']}`)).then((snapshot) => {
     setPage(0);
   };
   const deleteData = async (row) => {
+    let queryParams = window.location.search;
+        queryParams = querystring.parse(queryParams);
     setDelete(!deleteValue)
    const db = getDatabase();
-     set(ref(db, 'users/' + row.date), null);
+     set(ref(db, `${queryParams['?user']}/` + row.date), null);
     
   }
   const editForm = (row) => {
