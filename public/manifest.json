@@ -9,12 +9,12 @@
     },
     {
       "src": "companyLogo.jepg",
-      "type": "image/jepgg",
+      "type": "image/jepg",
       "sizes": "192x192"
     },
     {
       "src": "companyLogo.jepg",
-      "type": "image/jepyg",
+      "type": "image/jepg",
       "sizes": "512x512"
     }
   ],
