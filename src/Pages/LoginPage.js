@@ -66,7 +66,7 @@ class LoginPage extends Component{
          FontStyle:'normal'}}>Turmeric Price as of date mentioned</p>
         </Grid>
            <Grid>
-           <iframe src=" http://mserode.com/price.html" width="100%" height="400vh !important" frameBorder='0'></iframe>
+           <iframe src=" https://mserode.com/price.html" width="100%" height="400vh !important" frameBorder='0'></iframe>
         </Grid>
         </>
         )
