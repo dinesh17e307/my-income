@@ -78,7 +78,7 @@ const rows = [
 
 export default function ColumnGroupingTable() {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [data, setData] = React.useState([])
   const [loading, setLoading] = React.useState(true)
   const [open, setopen] = React.useState(false)
@@ -212,7 +212,7 @@ get(child(dbRef, `${queryParams['?user']}`)).then((snapshot) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[7, 25, 100]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

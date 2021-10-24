@@ -145,7 +145,7 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
         queryParams = querystring.parse(queryParams);
     setDelete(!deleteValue)
    const db = getDatabase();
-     set(ref(db, `${queryParams['?user']}/` + row.date), null);
+     set(ref(db, `milk/${queryParams['?user']}/` + row.date), null);
     
   }
   const editForm = (row) => {

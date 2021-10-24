@@ -7,7 +7,8 @@ class LoginPage extends Component{
       errMsg: '',
       error: false,
       Password: '',
-      UserName:''
+      UserName:'',
+
    }
    onChangehandler = (event) => {
       console.log(event)
@@ -27,6 +28,7 @@ class LoginPage extends Component{
     render() {
         const { classes } = this.props;
         return (
+           <>
            <Grid item lg={11} md={11} sm={11} xs={12} className={classes.outerContainer}>
                 <Grid container className={classes.marginFields} item lg={12} xs={12}>
                     
@@ -54,7 +56,19 @@ class LoginPage extends Component{
                      </Grid>
                      
                   </Grid>
+                  
            </Grid>
+           <Grid>
+          <p style={{fontSize: '16px',
+         fontFamily: 'Roboto',
+         fontWeight: 700,
+         color: '#9575cd',
+         FontStyle:'normal'}}>Turmeric Price as of date mentioned</p>
+        </Grid>
+           <Grid>
+           <iframe src=" http://mserode.com/price.html" width="100%" height="400vh !important" frameBorder='0'></iframe>
+        </Grid>
+        </>
         )
     }
 }
