@@ -15,7 +15,7 @@ class FlashScreen extends Component{
         
         return(
            
-            <Card style={{height:'100vh',backgroundColor:'aquamarine',}}>
+            <Card style={{height:'100%',backgroundColor:'aquamarine',}}>
             <img className="img"style={{textAlign:'center'}} src="https://i.ibb.co/NWJGRqS/IMG-20211020-211416-removebg-preview.png" width="400px"  alt="Loading flash"/>
             <FadeIn delay='100'>
             <img  src="https://wallpapercave.com/wp/wp2024300.jpg" width="400px"/>
