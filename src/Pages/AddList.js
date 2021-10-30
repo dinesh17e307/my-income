@@ -77,7 +77,7 @@ class AddList extends Component{
             
         }
         const db = getDatabase();
-        set(ref(db, `${this.state.userName}/` + this.state.date), data);
+        set(ref(db, `sambanki/${this.state.userName}/` + this.state.date), data);
         this.setState({
              kg: '',
                 rate: '',

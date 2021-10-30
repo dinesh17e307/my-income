@@ -100,12 +100,13 @@ export default function ColumnGroupingTable() {
         queryParams = querystring.parse(queryParams);
         console.log(queryParams)
 const dbRef = ref(getDatabase());
-get(child(dbRef, `${queryParams['?user']}`)).then((snapshot) => {
+get(child(dbRef, `sambanki/${queryParams['?user']}`)).then((snapshot) => {
   if (snapshot.exists()) {
     setdatainState(snapshot.val())
     console.log(snapshot.val());
   } else {
     console.log("No data available");
+    setLoading(false)
   }
 }).catch((error) => {
   console.error(error);
