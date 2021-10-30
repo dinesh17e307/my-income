@@ -107,9 +107,11 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
     console.log(snapshot.val());
   } else {
     console.log("No data available");
+    setLoading(false)
   }
 }).catch((error) => {
   console.error(error);
+  
 })
   }, [open,deleteValue])
   function setdatainState(data) {

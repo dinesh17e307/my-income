@@ -13,18 +13,19 @@ import MilkHome from './Home/MilkHome';
 import AddListMilk from './Pages/AddListMilk';
 import ShowListMilk from './Pages/ShowListMilk';
 import FlashScreen from './Screen/FlashScreen'
+import SIgnupPage from './Pages/SIgnupPage';
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
   state={
-    heading:false
+    heading:true
   }
   componentDidMount(){
-    setTimeout(() => {
-      this.setState({
-        heading:true
-      })
-    }, 8000);
+    // setTimeout(() => {
+    //   this.setState({
+    //     heading:true
+    //   })
+    // }, 8000);
   }
   checkHeader=(queryParams)=>{
     console.log('trigger')
@@ -41,7 +42,7 @@ class App extends Component {
     return (
       <>
         {this.state.heading &&(<Card style={{backgroundColor:'#2196f3',width:'100%',height:'70px',textAlign:'center'}}>
-        <h1> MY DIARY</h1>
+        <h1> FARMER PORTAL</h1>
         </Card>)}
       <Router history={history}>
           <Switch>
@@ -53,6 +54,7 @@ class App extends Component {
           <Route  component={SambangiHome} path="/sambangi" />
           <Route  component={MilkHome} path="/milk" />
           <Route component={AddListMilk} path="/addlistmilk" />
+          <Route component={SIgnupPage} path="/signup" />
            
            <Route component={ShowListMilk} path="/showlistmilk"  />
           <Route component={AddList} path="/addlist" />

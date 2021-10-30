@@ -16,11 +16,13 @@ class SambangiHome extends Component{
         userAllowed: [
             {
             label: 'Add List',
-            url: '/addlist'
+            url: '/addlist',
+            tamil:'பட்டியல் சேர்க்கவும்'
             },
             {
             label: 'ShowList',
-            url:'/showlist'
+            url:'/showlist',
+            tamil:'பட்டியல் காட்டு'
             },
             
         ], open: false,
@@ -99,6 +101,7 @@ class SambangiHome extends Component{
             
                     <Grid item xs={6} lg={3}onClick={() => this.navigate(item.url)} style={{ margin:'10px', width: '100%',height:'100px', border: '1px solid #028DE1', color: '#028DE1', backgroundColor: 'white' ,}}>
                         <div style={{textAlign:'center',fontSize:'14px',fontWeight:700,}}onClick={() => this.navigate(item.url)}> {item.label}</div>
+                        <div style={{textAlign:'center',fontSize:'14px',fontWeight:700,}}>{item.tamil}</div>
                     </Grid>
                 ))
                 }

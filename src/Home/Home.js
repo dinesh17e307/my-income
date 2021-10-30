@@ -16,11 +16,13 @@ class Home extends Component{
         userAllowed: [
             {
             label: 'Sambangi',
-            url: '/sambangi'
+            url: '/sambangi',
+            tamil:'சம்பங்கி '
             },
             {
             label: 'Milk',
-            url:'/milk'
+            url:'/milk',
+            tamil:'பால்'
             },
             
                 
@@ -65,6 +67,7 @@ class Home extends Component{
                     <Grid item xs={3} lg={3}     onClick={() => this.navigate(item.url)} style={{ margin:'10px', width: '100%',height:'100px', border: '1px solid #028DE1', color: '#028DE1', backgroundColor: 'white' ,}}>
                         <div  style={{textAlign:'center',fontSize:'14px',fontWeight:700,}}onClick={() => this.navigate(item.url)}> {item.label} </div>
                         <div style={{fontSize:'9px'}}>{item.decription&&item.decription}</div>
+                        <div style={{textAlign:'center',fontSize:'14px',fontWeight:700,}}>{item.tamil}</div>
                     </Grid>
                 ))
                 }
