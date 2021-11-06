@@ -14,6 +14,7 @@ import AddListMilk from './Pages/AddListMilk';
 import ShowListMilk from './Pages/ShowListMilk';
 import FlashScreen from './Screen/FlashScreen'
 import SIgnupPage from './Pages/SIgnupPage';
+import ShowWeekIncome from './Pages/ShowWeekIncome';
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
           <Route  component={MilkHome} path="/milk" />
           <Route component={AddListMilk} path="/addlistmilk" />
           <Route component={SIgnupPage} path="/signup" />
+          <Route component={ShowWeekIncome} path="/showweeklyincome" />
            
            <Route component={ShowListMilk} path="/showlistmilk"  />
           <Route component={AddList} path="/addlist" />

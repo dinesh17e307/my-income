@@ -24,6 +24,11 @@ class SambangiHome extends Component{
             url:'/showlist',
             tamil:'பட்டியல் காட்டு'
             },
+            {
+                label: 'Weekly Income',
+            url:'/showWeeklyincome',
+            tamil:'வார வருமானம்' 
+            }
             
         ], open: false,
         isEdit: false,
