@@ -16,7 +16,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddList from './AddList'
 import { getDatabase, ref, child, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
-import { Button ,Grid,Card} from '@material-ui/core';
+import { Button, Grid, Card } from '@material-ui/core';
 import AddWeeklyIncome from './AddWeeklyIncome';
 import AddIcon from '@mui/icons-material/Add';
 const querystring = require('querystring');
@@ -42,10 +42,10 @@ const columns = [
     id: 'date',
     label: 'Date',
     minWidth: 50,
-    
-    
+
+
   },
-  
+
 ];
 
 function createData(name, code, population, size) {
@@ -81,56 +81,56 @@ export default function ColumnGroupingTable() {
   const [editValue, setEditValue] = React.useState({})
   const [deleteValue, setDelete] = React.useState(false)
   const [openForm, setopenForm] = React.useState(false)
-const [total, setTotal] = React.useState(0)
+  const [total, setTotal] = React.useState(0)
   // React.useEffect(() => {
   //   axios.get('https://goweb-1c5e7-default-rtdb.firebaseio.com/flower.json').then(res => {
   //     setdatainState(res.data)
   //     console.log(res)
   //   }
-      
+
   //   ).catch(err => {
   //     console.log(err)
   //   })
   // }, [])
   React.useEffect(() => {
-     let queryParams = window.location.search;
-        queryParams = querystring.parse(queryParams);
-        console.log(queryParams)
-const dbRef = ref(getDatabase());
-get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    setdatainState(snapshot.val())
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-    setLoading(false)
-  }
-}).catch((error) => {
-  console.error(error);
-})
-  }, [open,deleteValue,openForm])
+    let queryParams = window.location.search;
+    queryParams = querystring.parse(queryParams);
+    console.log(queryParams)
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setdatainState(snapshot.val())
+        console.log(snapshot.val());
+      } else {
+        console.log("No data available");
+        setLoading(false)
+      }
+    }).catch((error) => {
+      console.error(error);
+    })
+  }, [open, deleteValue, openForm])
   function setdatainState(data) {
     let arr = [];
-    let totalIncome=0;
+    let totalIncome = 0;
     for (let key in data) {
       console.log(data[key])
-      let value=data[key]
-      
+      let value = data[key]
+
       arr.push({
         totalincome: value.totalincome,
-        
+
         date: value.date,
-        
-        
+
+
       })
-      
-       totalIncome=totalIncome+parseInt(value.totalincome)
+
+      totalIncome = totalIncome + parseInt(value.totalincome)
     }
     console.log(arr)
     setTotal(totalIncome)
     setData(arr)
     setLoading(false)
-}
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -141,16 +141,16 @@ get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapsho
   };
   const deleteData = async (row) => {
     let queryParams = window.location.search;
-        queryParams = querystring.parse(queryParams);
+    queryParams = querystring.parse(queryParams);
     setDelete(!deleteValue)
-   const db = getDatabase();
-     set(ref(db, `sambanki/weeklyincome/${queryParams['?user']}/` + row.date), null);
-    
+    const db = getDatabase();
+    set(ref(db, `sambanki/weeklyincome/${queryParams['?user']}/` + row.date), null);
+
   }
   const editForm = (row) => {
     setopenForm(true);
     setEditValue(row)
-    console.log('edit',row)
+    console.log('edit', row)
   }
   const handleClose = () => {
     setopen(false)
@@ -158,37 +158,37 @@ get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapsho
   const handleCloseAddForm = () => {
     setopenForm(false)
   }
-  const openIncomeDialog=()=>{
-      setopenForm(true)
-      setEditValue([])
+  const openIncomeDialog = () => {
+    setopenForm(true)
+    setEditValue([])
   }
   return (
-<>
+    <>
 
       <div>
-          <Grid item style={{marginBottom:'15px',marginTop:'10px'}}>
-              <Button color="primary" variant="outlined" onClick={openIncomeDialog}><AddIcon/>ADD InCOME</Button>
+        <Grid item style={{ marginBottom: '15px', marginTop: '10px' }}>
+          <Button color="primary" variant="outlined" onClick={openIncomeDialog}><AddIcon />ADD InCOME</Button>
+        </Grid>
+
+        <Card style={{ marginLeft: '40px', width: '80%', height: '100px', border: '1px solid #028DE1', padding: '10px auto' }}>
+          <Grid container>
+            <p style={{ fontSize: '20px', color: 'GrayText', marginTop: '10px', marginLeft: '20px', fontFamily: 'Roboto', fontWeight: 700 }}>Total Income : </p>
+            <p style={{ fontSize: '20px', color: 'GrayText', marginTop: '10px', marginLeft: '20px', fontFamily: 'Roboto', fontWeight: 700 }}>{total} </p>
+
+
           </Grid>
-         
-          <Card style={{ marginLeft: '40px', width: '80%', height: '100px', border: '1px solid #028DE1', padding: '10px auto' }}>
-                    <Grid container>
-                        <p style={{ fontSize: '20px',color:'GrayText' ,marginTop:'10px',marginLeft:'20px',fontFamily:'Roboto',fontWeight:700}}>Total Income : </p>
-                        <p   style={{ fontSize: '20px',color:'GrayText' ,marginTop:'10px',marginLeft:'20px',fontFamily:'Roboto',fontWeight:700}}>{total} </p>
-                         
-                        
-                    </Grid>
-                    
-                    
-                    
-              </Card>
-        
-        {loading && (<div style={{textAlign:'center',marginLeft:'40%',marginTop:'10%'}}className="lds-dual-ring"></div>)}
+
+
+
+        </Card>
+
+        {loading && (<div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
       </div>
       {!loading && (<div>
         {console.log(data)}
-      
+
         <TableContainer sx={{ maxHeight: 640 }}>
-          <Table  aria-label="sticky table">
+          <Table aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -212,7 +212,7 @@ get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapsho
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                       {columns.map((column) => {
                         const value = row[column.id];
-                       
+
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
@@ -222,15 +222,15 @@ get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapsho
                         );
                       })}
                       <TableCell>
-                        <EditSharpIcon color='success' style={{ cursor: 'pointer' }}onClick={() => editForm(row)}/>
+                        <EditSharpIcon color='success' style={{ cursor: 'pointer' }} onClick={() => editForm(row)} />
                       </TableCell>
                       <TableCell>
-                         <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={()=>deleteData(row)} />
+                        <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={() => deleteData(row)} />
                       </TableCell>
                     </TableRow>
                   );
                 })}
-              
+
             </TableBody>
           </Table>
         </TableContainer>
@@ -244,21 +244,21 @@ get(child(dbRef, `sambanki/weeklyincome/${queryParams['?user']}`)).then((snapsho
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-        
+
       )}
-     
+
       {openForm && (
         <Dialog open={openForm} onClose={handleCloseAddForm}>
-        <DialogTitle>Add your weekly income</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-          <AddWeeklyIncome data={editValue} closedialog={handleCloseAddForm}/>
-          </DialogContentText>
-          
-        </DialogContent>
-        
-      </Dialog>
+          <DialogTitle>Add your weekly income</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <AddWeeklyIncome data={editValue} closedialog={handleCloseAddForm} />
+            </DialogContentText>
+
+          </DialogContent>
+
+        </Dialog>
       )}
-  </>
+    </>
   );
 }

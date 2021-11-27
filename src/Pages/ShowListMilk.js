@@ -41,17 +41,17 @@ const columns = [
     id: 'cost',
     label: 'Cost Per Day',
     minWidth: 50,
-    
-    
+
+
   },
   {
     id: 'date',
     label: 'Date',
     minWidth: 50,
-    
-    
+
+
   },
-  
+
 ];
 
 function createData(name, code, population, size) {
@@ -91,49 +91,49 @@ export default function ColumnGroupingTable() {
   //     setdatainState(res.data)
   //     console.log(res)
   //   }
-      
+
   //   ).catch(err => {
   //     console.log(err)
   //   })
   // }, [])
   React.useEffect(() => {
-     let queryParams = window.location.search;
-        queryParams = querystring.parse(queryParams);
-        console.log(queryParams)
-const dbRef = ref(getDatabase());
-get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    setdatainState(snapshot.val())
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-    setLoading(false)
-  }
-}).catch((error) => {
-  console.error(error);
-  
-})
-  }, [open,deleteValue])
+    let queryParams = window.location.search;
+    queryParams = querystring.parse(queryParams);
+    console.log(queryParams)
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setdatainState(snapshot.val())
+        console.log(snapshot.val());
+      } else {
+        console.log("No data available");
+        setLoading(false)
+      }
+    }).catch((error) => {
+      console.error(error);
+
+    })
+  }, [open, deleteValue])
   function setdatainState(data) {
     let arr = [];
     for (let key in data) {
       console.log(data[key])
-      let value=data[key]
+      let value = data[key]
       arr.push({
         kg: value.kg,
         cost: value.cost,
         rate: value.rate,
         date: value.date,
-        
-        
+
+
       })
-      
-      
+
+
     }
     console.log(arr)
     setData(arr)
     setLoading(false)
-}
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -144,31 +144,31 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
   };
   const deleteData = async (row) => {
     let queryParams = window.location.search;
-        queryParams = querystring.parse(queryParams);
+    queryParams = querystring.parse(queryParams);
     setDelete(!deleteValue)
-   const db = getDatabase();
-     set(ref(db, `milk/${queryParams['?user']}/` + row.date), null);
-    
+    const db = getDatabase();
+    set(ref(db, `milk/${queryParams['?user']}/` + row.date), null);
+
   }
   const editForm = (row) => {
     setEdit(true);
     setopen(true);
     setEditValue(row)
-    console.log('edit',row)
+    console.log('edit', row)
   }
   const handleClose = () => {
     setopen(false)
   }
   return (
-<>
+    <>
       <div>
-        {loading && (<div style={{textAlign:'center',marginLeft:'40%',marginTop:'10%'}}className="lds-dual-ring"></div>)}
+        {loading && (<div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
       </div>
       {!loading && (<div>
         {console.log(data)}
-      
+
         <TableContainer sx={{ maxHeight: 640 }}>
-          <Table  aria-label="sticky table">
+          <Table aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -192,7 +192,7 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                       {columns.map((column) => {
                         const value = row[column.id];
-                       
+
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
@@ -202,15 +202,15 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
                         );
                       })}
                       <TableCell>
-                        <EditSharpIcon color='success' style={{ cursor: 'pointer' }}onClick={() => editForm(row)}/>
+                        <EditSharpIcon color='success' style={{ cursor: 'pointer' }} onClick={() => editForm(row)} />
                       </TableCell>
                       <TableCell>
-                         <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={()=>deleteData(row)} />
+                        <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={() => deleteData(row)} />
                       </TableCell>
                     </TableRow>
                   );
                 })}
-              
+
             </TableBody>
           </Table>
         </TableContainer>
@@ -224,20 +224,20 @@ get(child(dbRef, `milk/${queryParams['?user']}/`)).then((snapshot) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-        
+
       )}
       {isEdit && (
         <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit your Records and update</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-              <AddListMilk data={editValue} closedialog={handleClose}/>
-          </DialogContentText>
-          
-        </DialogContent>
-        
-      </Dialog>
+          <DialogTitle>Edit your Records and update</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <AddListMilk data={editValue} closedialog={handleClose} />
+            </DialogContentText>
+
+          </DialogContent>
+
+        </Dialog>
       )}
-  </>
+    </>
   );
 }

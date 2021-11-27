@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {  Grid, TextField ,Button} from '@material-ui/core'
+import { Grid, TextField, Button } from '@material-ui/core'
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddListStyle from '../Styles/AddList'
 import '../Spinner/Spinner.css'
-import { getDatabase,ref, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
@@ -11,34 +11,34 @@ const querystring = require('querystring');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA",
-  authDomain: "my-income-fbd33.firebaseapp.com",
-  databaseURL: "https://my-income-fbd33-default-rtdb.firebaseio.com",
-  projectId: "my-income-fbd33",
-  storageBucket: "my-income-fbd33.appspot.com",
-  messagingSenderId: "571957745936",
-  appId: "1:571957745936:web:99190cd33c602ad45eed95"
+    apiKey: "AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA",
+    authDomain: "my-income-fbd33.firebaseapp.com",
+    databaseURL: "https://my-income-fbd33-default-rtdb.firebaseio.com",
+    projectId: "my-income-fbd33",
+    storageBucket: "my-income-fbd33.appspot.com",
+    messagingSenderId: "571957745936",
+    appId: "1:571957745936:web:99190cd33c602ad45eed95"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-class AddList extends Component{
+class AddList extends Component {
     state = {
         kg: '',
         rate: '',
         date: '',
         loading: false,
         enable: false,
-        userName:''
-        
+        userName: ''
+
     }
     componentDidMount() {
         console.log('hello', this.props.data)
-         let queryParams = window.location.search;
+        let queryParams = window.location.search;
         queryParams = querystring.parse(queryParams);
         console.log(queryParams)
         this.setState({
-            userName:queryParams['?user']
+            userName: queryParams['?user']
         })
         if (this.props.data) {
             this.setState({
@@ -48,14 +48,14 @@ class AddList extends Component{
             })
         }
     }
-    onChangehandler = async(value) => {
+    onChangehandler = async (value) => {
         await this.setState({
-            [value.target.id]:value.target.value
+            [value.target.id]: value.target.value
         })
-        let {kg,rate,date}=this.state
-        if (kg !=='' && rate !== '' && date !== '') {
+        let { kg, rate, date } = this.state
+        if (kg !== '' && rate !== '' && date !== '') {
             this.setState({
-                enable:true
+                enable: true
             })
         }
     }
@@ -64,7 +64,7 @@ class AddList extends Component{
         queryParams = querystring.parse(queryParams);
         console.log(queryParams)
         this.setState({
-            loading:true
+            loading: true
         })
         if (this.props.data) {
             this.props.closedialog()
@@ -74,16 +74,16 @@ class AddList extends Component{
             rate: this.state.rate,
             date: this.state.date,
             cost: this.state.rate * this.state.kg
-            
+
         }
         const db = getDatabase();
         set(ref(db, `sambanki/${this.state.userName}/` + this.state.date), data);
         this.setState({
-             kg: '',
-                rate: '',
-                date: '',
-                loading: false,
-                enable:false
+            kg: '',
+            rate: '',
+            date: '',
+            loading: false,
+            enable: false
         })
         // axios.post('https://goweb-1c5e7-default-rtdb.firebaseio.com/flower.json'+username,data).then(res => {
         //     this.setState({
@@ -101,13 +101,13 @@ class AddList extends Component{
         this.props.history.push(`/showlist?user=${this.state.userName}`)
     }
     render() {
-      console.log(this.state)
-    const { classes } = this.props;
+        console.log(this.state)
+        const { classes } = this.props;
         return (
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 <div>
-        {this.state.loading && (<div style={{textAlign:'center',marginLeft:'50%',marginTop:'10%'}}className="lds-dual-ring"></div>)}
-      </div>
+                    {this.state.loading && (<div style={{ textAlign: 'center', marginLeft: '50%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
+                </div>
                 {!this.state.loading && (<Grid container >
                     <Grid item lg={6} xs={12} >
                         <TextField className={classes.width} inputProps={{
@@ -115,23 +115,23 @@ class AddList extends Component{
                                 width: '100%',
                                 fontSize: '14px'
                             }
-                        }} variant='standard' label="Weight" id="kg" placeHolder="kilogram" onChange={(event) => this.onChangehandler(event)} value={this.state.kg} />
+                        }} variant='standard' label="எடை" id="kg" placeHolder="kilogram" onChange={(event) => this.onChangehandler(event)} value={this.state.kg} />
                     </Grid>
                     <Grid item lg={6} xs={12}>
-                        <TextField className={classes.width} id="rate" variant='standard' label="Rate" placeHolder="rate" onChange={(event) => this.onChangehandler(event)} value={this.state.rate} />
+                        <TextField className={classes.width} id="rate" variant='standard' label="விலை" placeHolder="rate" onChange={(event) => this.onChangehandler(event)} value={this.state.rate} />
                     </Grid>
                     <Grid lg={6} xs={12}>
-                        <TextField className={classes.width} id="date" type='date' label="Date" onChange={(event) => this.onChangehandler(event)} value={this.state.date} />
+                        <TextField className={classes.width} id="date" type='date' label="தேதி" onChange={(event) => this.onChangehandler(event)} value={this.state.date} />
                     </Grid>
-                    
+
                     <Grid lg={6} xs={12}>
-                        <Button className={classes.loginButton} onClick={this.sendListToDB} disabled={!this.state.enable}>Add</Button>
+                        <Button className={classes.loginButton} onClick={this.sendListToDB} disabled={!this.state.enable}>சேர்</Button>
                     </Grid>
                 </Grid>
                 )}
                 <Grid>
-                    <p onClick={ this.goToShowList}style={{ textAlign:'center',color:'blue', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}>
-                       Go to TableList</p>
+                    <p onClick={this.goToShowList} style={{ textAlign: 'center', color: 'blue', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}>
+                        பட்டியலுக்குச் செல்லவும்</p>
                 </Grid>
             </Grid>
         )
