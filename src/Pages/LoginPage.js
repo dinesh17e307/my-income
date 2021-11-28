@@ -1,21 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { Grid, TextField, Button, Modal, Hidden } from '@material-ui/core'
 import LoginPageStyle from '../Styles/LoginPage'
 import axios from 'axios'
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-
-class LoginPage extends Component {
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+class LoginPage extends PureComponent {
    state = {
       errMsg: '',
       error: false,
       Password: '',
       UserName: '',
       loading: false,
-      manjalOpen: false
+      manjalOpen: false,
+      notVerified: false
 
    }
 
+   componentDidMount = async () => {
+      // var userName = localStorage.getItem('userName')
+      // var password = localStorage.getItem('password')
+      // console.log(userName, password)
+      // await this.setState({
+      //    UserName: userName,
+      //    password: password,
+      // })
+      // if (userName !== '' && password !== '') {
+      //    console.log(this.state)
+      //    this.login()
+      // }
+   }
 
    onChangehandler = (event) => {
       this.setState({
@@ -32,34 +46,29 @@ class LoginPage extends Component {
          returnSecureToken: true,
       };
       if (this.state.UserName !== '' && this.state.Password !== '') {
-         const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA'
-         axios
-            .post(url, authdata)
-            .then((res) => {
-               console.log(res.data);
-               this.props.history.push(`/home?user=${this.state.UserName.split('.')[0]}`)
-               const expirationDate = new Date(
-                  new Date().getTime() + res.data.expiresIn * 1000
-               );
+         const auth = getAuth();
+         signInWithEmailAndPassword(auth, this.state.UserName, this.state.Password)
+            .then((userCredential) => {
 
-               localStorage.setItem("token", res.data.idToken);
-               localStorage.setItem("expirationDate", expirationDate);
-               localStorage.setItem("userId", res.data.localId);
+               const user = userCredential.user;
+               if (user.emailVerified) {
+                  this.props.history.push(`/home?user=${this.state.UserName.split('.')[0]}`)
+               }
+               else {
+                  this.setState({
+                     notVerified: true
+                  })
+               }
                this.setState({
-                  loading: true
+                  loading: false
                })
             })
-            .catch((err) => {
-               console.log(err.response);
-               this.setState({
-                  error: true,
-                  loading: false,
-                  errMsg: err.response.data.error.message
-               })
+            .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
             });
-      };
+      }
    }
-
 
    render() {
       const { classes } = this.props;
@@ -91,10 +100,12 @@ class LoginPage extends Component {
 
 
                   <Grid item lg={12} className={classes.outerButton} container>
-                     <Button className={classes.loginButton} onClick={this.login}>Login</Button>
+                     <Grid item lg={3} xs={12}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
 
-                     <p style={{ marginTop: '5px' }}>if you have not Registered? <a href="/signup" style={{ color: 'blue' }}>signup</a></p>
+                     <Grid item lg={9} xs={12}> <p style={{ marginTop: '5px' }}>if you have not Registered? <a href="/signup" style={{ color: 'blue' }}>signup</a></p></Grid>
+
                   </Grid>
+                  {this.state.notVerified && (<Grid style={{ color: 'red' }}>Please verify link sent to mail</Grid>)}
 
                </Grid>
 

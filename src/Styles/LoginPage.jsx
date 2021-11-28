@@ -26,10 +26,23 @@ const LoginPageStyle = (theme) => ({
     marginRight: '10px',
     width: '120px',
     height: '40px',
-    color: 'skyblue',
+    color: 'white !important',
     border: `1px solid #028DE1 !important`,
-    background: 'white',
-
+    background: '#03a9f4',
+    '&:hover': {
+      backgroundColor: '#028DE8 !important',
+      color: 'white !important',
+    },
+    '&:focus': {
+      backgroundColor: 'white !important',
+      color: '#00acc1 !important',
+      border: '1px solid #00acc19 !important',
+    },
+    '&:disabled': {
+      backgroundColor: 'white !important',
+      color: '#00acc1 !important',
+      border: '1px solid blue !important',
+    }
 
   },
   signupButton: {

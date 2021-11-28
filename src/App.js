@@ -17,6 +17,7 @@ import SIgnupPage from './Pages/SIgnupPage';
 import ShowWeekIncome from './Pages/ShowWeekIncome';
 import Bidding from './Pages/Bidding';
 import Users from './Pages/Users';
+import Success from './Pages/Success';
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
@@ -61,6 +62,7 @@ class App extends Component {
             <Route component={ShowWeekIncome} path="/showweeklyincome" />
 
             <Route component={ShowListMilk} path="/showlistmilk" />
+            <Route component={Success} path="/success" />
             <Route component={AddList} path="/addlist" />
 
             <Route component={ShowList} path="/showlist" />
