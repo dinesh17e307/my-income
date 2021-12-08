@@ -51,8 +51,8 @@ class App extends Component {
         </Card>)}
         <Router history={history}>
           <Switch>
-            <Route exact component={FlashScreen} path="/log" />
-            <Route exact component={Login} path="/" />
+            <Route exact component={FlashScreen} path="/" />
+            <Route exact component={Login} path="/login" />
             <Route component={Home} path="/home" >
 
             </Route>

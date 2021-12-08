@@ -39,8 +39,8 @@ const LoginPageStyle = (theme) => ({
       border: '1px solid #00acc19 !important',
     },
     '&:disabled': {
-      backgroundColor: '#028DE1 !important',
-      color: '#00acc1 !important',
+      backgroundColor: '#d500f9 !important',
+      color: 'white !important',
       border: '1px solid blue !important',
     }
 
