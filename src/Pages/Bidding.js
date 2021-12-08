@@ -128,7 +128,7 @@ class Bidding extends Component {
         
         const db = getDatabase();
         set(ref(db, `bidding/${this.state.userName}/${this.state.Nickname}/members`), data);
-        this.props.history.push('/bidHome')
+        this.props.history.push(`/bidHome?user=${this.state.userName}`)
     }
     render() {
         const{classes}=this.props;
