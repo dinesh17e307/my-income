@@ -18,6 +18,7 @@ import ShowWeekIncome from './Pages/ShowWeekIncome';
 import Bidding from './Pages/Bidding';
 import Users from './Pages/Users';
 import Success from './Pages/Success';
+import BiddingHome from './Pages/BiddingHome';
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
@@ -50,8 +51,8 @@ class App extends Component {
         </Card>)}
         <Router history={history}>
           <Switch>
-            <Route exact component={FlashScreen} path="/" />
-            <Route exact component={Login} path="/login" />
+            <Route exact component={FlashScreen} path="/log" />
+            <Route exact component={Login} path="/" />
             <Route component={Home} path="/home" >
 
             </Route>
@@ -66,7 +67,8 @@ class App extends Component {
             <Route component={AddList} path="/addlist" />
 
             <Route component={ShowList} path="/showlist" />
-            <Route component={Bidding} path="/bid" />
+            <Route component={Bidding} path="/startBid" />
+            <Route component={BiddingHome} path="/bidHome" />
             <Route component={Users} path="/users" />
           </Switch>
 

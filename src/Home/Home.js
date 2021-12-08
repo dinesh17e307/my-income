@@ -41,7 +41,7 @@ class Home extends Component {
         },
         {
             label: 'Bidding',
-            url: '/bid',
+            url: '/bidHome',
             tamil: 'ஏலம்',
             dev: true
         },
