@@ -22,15 +22,15 @@ const LoginPageStyle = (theme) => ({
   },
   loginButton: {
 
-    borderRadius: '25px',
+    borderRadius: '5px',
     marginRight: '10px',
     width: '120px',
     height: '40px',
     color: 'white !important',
     border: `1px solid #028DE1 !important`,
-    background: '#03a9f4',
+    background: '#d500f9',
     '&:hover': {
-      backgroundColor: '#028DE8 !important',
+      backgroundColor: '#d500f9 !important',
       color: 'white !important',
     },
     '&:focus': {
@@ -39,7 +39,7 @@ const LoginPageStyle = (theme) => ({
       border: '1px solid #00acc19 !important',
     },
     '&:disabled': {
-      backgroundColor: 'white !important',
+      backgroundColor: '#028DE1 !important',
       color: '#00acc1 !important',
       border: '1px solid blue !important',
     }
