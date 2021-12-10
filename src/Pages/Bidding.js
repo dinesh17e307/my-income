@@ -18,7 +18,7 @@ const firebaseConfig = {
     appId: "1:571957745936:web:99190cd33c602ad45eed95"
 };
 const app = initializeApp(firebaseConfig);
-
+var biddingPerson=[];
 const buttons = [
     100, 200, 300, 500, , 1000, 2000, 3000, 5000, 10000
 
@@ -36,7 +36,7 @@ class Bidding extends Component {
     state = {
         members: [],
         member: '',
-        baseAmount:1000,
+        baseAmount:0,
         bidArray:[],
         LockBidAmount:0,
         LockBidMember:'',
@@ -45,11 +45,14 @@ class Bidding extends Component {
     }
     componentDidMount(){
         bidArray=[]
+        var notTakenMembers=[];
         let queryParams = window.location.search;
         queryParams = querystring.parse(queryParams);
         let lastBid=0
         var valueArray=window.sessionStorage.getItem('bidArray')
         let CurrentBid=window.sessionStorage.getItem('currentBid');
+        let IndBidArray=window.sessionStorage.getItem('IndbidArray');
+        if(IndBidArray)IndBidArray=JSON.parse(IndBidArray)
         if(CurrentBid){
             CurrentBid=JSON.parse(CurrentBid)
             let count=0
@@ -58,17 +61,22 @@ class Bidding extends Component {
                      if(key.taken){
                          count=count+1;
                      }
+                     else{
+                        notTakenMembers.push(key)
+                     }
                 }
             
             
+
             
             this.setState({
                 userName: queryParams['?user'],
                 members:CurrentBid.members,
                 totalAmount:CurrentBid.totalAmount,
                 Nickname:CurrentBid.nickName,
-                member:CurrentBid.members[0].name,
-                currentCount:count+1
+                member:notTakenMembers&&notTakenMembers.length>0&&notTakenMembers[0].name,
+                currentCount:count+1,
+                IndBidArray:IndBidArray
             })
         }
         
@@ -85,20 +93,29 @@ class Bidding extends Component {
         }
     }
     changeAmount = async(item) => {
+
         await this.setState({
             baseAmount:this.state.baseAmount+parseInt(item.key)
         })
       
+        let data=this.state.IndBidArray?this.state.IndBidArray:this.state.members
+      for(let key of data){
+          
+          if(key.name===this.state.member){
+              key.amountArray=[...key.amountArray,this.state.baseAmount]
+          }
+      }
         
        let currentObj={
             name:this.state.member,
                 Amount:this.state.baseAmount
         }
         bidArray.push(currentObj)
-
+        
         
     
        window.sessionStorage.setItem('bidArray',JSON.stringify(bidArray))
+       window.sessionStorage.setItem('IndbidArray',JSON.stringify(data))
        
     }
     SelectMember = (event) => {
@@ -114,6 +131,33 @@ class Bidding extends Component {
             showFinalVal:true
         })
         
+    }
+    showCurrentBiddingList=()=>{
+        
+        return(
+        <Card style={{boxShadow:'10px 3px 10px #00897b',height:'160px',backgroundColor:'#ffd54f',overflowY:'scroll'}}>
+                <Grid container style={{margin:'10px'}} ld={12} xs={12}>
+                    {this.state.IndBidArray && this.state.IndBidArray.length > 0  && this.state.IndBidArray.map(items=>{
+
+                 return(  <> 
+                 <Grid item>
+                 <Grid container style={{margin:'10px'}} lg={6} xs={6}>
+            <Grid item lg={6} xs={6} style={{fontSize:'18px',fontFamily:'sans-serif',fontWeight:500}}>{items.name}</Grid>
+            
+                   <Grid item lg={6} xs={6}>{items.amountArray&&items.amountArray.length>1&&items.amountArray.map(rs=>{
+                       return(
+                           <Grid>
+                               {rs!='0'?rs:''}
+                           </Grid>
+                       )
+                   })} </Grid>
+           
+            </Grid>
+            </Grid>
+             </> )
+        })}
+            </Grid>
+                        </Card>)
     }
     finishThisBid=()=>{
        
@@ -155,6 +199,9 @@ class Bidding extends Component {
                 <Grid container>
                 <Grid lg={4} xs={6}style={{ marginBottom: '20px', marginTop: '20px' }}><Button disabled={!this.state.member!=''} onClick={this.getFinalAmount}variant="contained"className={classes.commonbutton}  >Lock</Button></Grid>
                 <Grid lg={4} xs={6}style={{ marginBottom: '20px', marginTop: '20px' }}><Button variant="contained"className={classes.commonbutton} onClick={()=>this.finishThisBid()}  >Finish</Button></Grid>
+            </Grid>
+            <Grid>
+                {this.showCurrentBiddingList()}
             </Grid>
             <Grid>{this.state.showFinalVal&&(
             <Card style={{boxShadow:'10px 3px 10px #00897b',height:'160px',backgroundColor:'#ffd54f',textAlign:'center'}}>

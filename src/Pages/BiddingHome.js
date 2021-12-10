@@ -32,13 +32,14 @@ class BiddingHome extends React.PureComponent{
        
         let queryParams = window.location.search;
         queryParams = querystring.parse(queryParams);
-        console.log(queryParams)
+      
         this.setState({
             userName: queryParams['?user'],
             loading:true
         })
         window.sessionStorage.removeItem('currentBid')
         window.sessionStorage.removeItem('bidArray')
+        window.sessionStorage.removeItem('IndbidArray')
         const dbRef = ref(getDatabase());
         get(child(dbRef, `bidding/${queryParams['?user']}`)).then((snapshot) => {
             if (snapshot.exists()) {
@@ -62,7 +63,7 @@ class BiddingHome extends React.PureComponent{
                   })
                 }
                 
-              console.log(snapshot.val());
+
               this.setState({
                
                 bidArray:arr,
@@ -88,7 +89,7 @@ class BiddingHome extends React.PureComponent{
     fetchValue(){
         let queryParams = window.location.search;
         queryParams = querystring.parse(queryParams);
-        console.log(queryParams)
+        
         const dbRef = ref(getDatabase());
         get(child(dbRef, `bidding/${queryParams['?user']}`)).then((snapshot) => {
             if (snapshot.exists()) {
@@ -134,10 +135,10 @@ class BiddingHome extends React.PureComponent{
           })
     }
     AddDetails=()=>{
-        console.log(this.state)
+        
         let queryParams = window.location.search;
         queryParams = querystring.parse(queryParams);
-        console.log(queryParams)
+    
         let data={
             bidOwner: this.state.bidOwner,
              indAmount: this.state.indAmount,
@@ -165,7 +166,8 @@ class BiddingHome extends React.PureComponent{
                    name:i,
                    taken:false,
                    amount:'0',
-                   Sno:''
+                   Sno:'',
+                   amountArray:['0']
                })
             }
             this.setState({
@@ -246,7 +248,7 @@ class BiddingHome extends React.PureComponent{
     }
     render(){
         const{classes}=this.props;
-        console.log(this.state)
+
         return(
             <>
             
