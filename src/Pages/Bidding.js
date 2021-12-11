@@ -75,6 +75,7 @@ class Bidding extends Component {
             await this.setState({
                 userName: queryParams['?user'],
                 members: CurrentBid.members,
+                totalCount:CurrentBid.totalCount,
                 totalAmount: CurrentBid.totalAmount,
                 Nickname: CurrentBid.nickName,
                 indAmount: CurrentBid.indAmount,
@@ -121,7 +122,8 @@ class Bidding extends Component {
         }
 
         bidArray.push(currentObj)
-        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / this.state.member.length
+        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / (parseInt(this.state.totalCount)-(parseInt(this.state.currentCount)-1))
+        console.log(bidArray[bidArray.length - 1].Amount,(parseInt(this.state.totalCount)-(parseInt(this.state.currentCount)-1)) )
         let balanceAmount = this.state.indAmount - commission
         await this.setState({
             IndBidArray: data,
@@ -240,7 +242,7 @@ class Bidding extends Component {
                             <Grid lg={6} xs={6} style={{ fontSize: '16px', fontFamily: 'sans-serif', fontWeight: 500 }}>&#8377;{this.state.LockBidAmount}</Grid>
 
                         </Grid>
-                        <Grid style={{ textAlign: 'center', fontSize: '16px', color: 'blue', fontWeight: 500 }}>{'Take Away Home   '}<span style={{ color: 'InfoText' }}>{`${this.state.totalAmount} - ${this.state.LockBidAmount}+${this.state.indAmount} = `}</span>&#8377;{this.state.totalAmount - (parseInt(this.state.LockBidAmount) + parseInt(this.state.indAmount))}</Grid>
+                        
 <hr/>
                         <Grid lg={12} xs={12} style={{ fontSize: '18px', fontFamily: 'sans-serif', fontWeight: 700 }}>{'Taken'}</Grid>
 
@@ -261,7 +263,7 @@ class Bidding extends Component {
                                 )
                             })}</Grid>
                         </Grid>
-
+                        <Grid style={{ textAlign: 'center', fontSize: '16px', color: 'blue', fontWeight: 500 }}>{'Take Away Home   '}<span style={{ color: 'InfoText' }}>{`${this.state.totalAmount} - ${this.state.LockBidAmount}+${this.state.indAmount} = `}</span>&#8377;{(parseInt(this.state.totalAmount)+((parseInt(this.state.currentCount)-1)*parseInt(this.state.indAmount)) - (parseInt(this.state.LockBidAmount) + parseInt(this.state.indAmount)))}</Grid>
 
                     </Card>
                 )}
