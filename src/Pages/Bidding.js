@@ -122,8 +122,8 @@ class Bidding extends Component {
         }
 
         bidArray.push(currentObj)
-        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / (parseInt(this.state.totalCount)-(parseInt(this.state.currentCount)-1))
-        console.log(bidArray[bidArray.length - 1].Amount,(parseInt(this.state.totalCount)-(parseInt(this.state.currentCount)-1)) )
+        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / ((parseInt(this.state.totalCount)-(parseInt(this.state.currentCount))))
+        console.log(bidArray[bidArray.length - 1].Amount,(parseInt(this.state.totalCount)-(parseInt(this.state.currentCount))) )
         let balanceAmount = this.state.indAmount - commission
         await this.setState({
             IndBidArray: data,
@@ -263,7 +263,7 @@ class Bidding extends Component {
                                 )
                             })}</Grid>
                         </Grid>
-                        <Grid style={{ textAlign: 'center', fontSize: '16px', color: 'blue', fontWeight: 500 }}>{'Take Away Home   '}<span style={{ color: 'InfoText' }}>{`${this.state.totalAmount} - ${this.state.LockBidAmount}+${this.state.indAmount} = `}</span>&#8377;{(parseInt(this.state.totalAmount)+((parseInt(this.state.currentCount)-1)*parseInt(this.state.indAmount)) - (parseInt(this.state.LockBidAmount) + parseInt(this.state.indAmount)))}</Grid>
+                        <Grid style={{ textAlign: 'center', fontSize: '16px', color: 'blue', fontWeight: 500 }}>{'Take Away Home   '}<span style={{ color: 'InfoText' }}>{`${this.state.totalAmount} - ${this.state.LockBidAmount}+${this.state.indAmount} = `}</span>&#8377;{(parseInt(this.state.totalAmount) - (parseInt(this.state.LockBidAmount) + parseInt(this.state.indAmount)))}</Grid>
 
                     </Card>
                 )}
