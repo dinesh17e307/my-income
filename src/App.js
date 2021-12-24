@@ -46,9 +46,7 @@ class App extends Component {
     console.log(queryParams, Object.keys(queryParams).length > 0)
     return (
       <>
-        {this.state.heading && (<Card style={{ backgroundColor: '#2196f3', width: '100%', height: '70px', textAlign: 'center' }}>
-          <h1> FARMER PORTAL</h1>
-        </Card>)}
+        
         <Router history={history}>
           <Switch>
             {/* <Route exact component={FlashScreen} path="/" /> */}

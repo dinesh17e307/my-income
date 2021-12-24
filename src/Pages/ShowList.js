@@ -16,7 +16,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddList from './AddList'
 import { getDatabase, ref, child, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
-import { Hidden } from '@material-ui/core';
+import { Hidden, Grid, Card, Button } from '@material-ui/core';
+import { TextField } from '@mui/material';
+import "react-datetime/css/react-datetime.css";
+import Datetime from 'react-datetime';
+import { useState } from 'react';
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -86,6 +90,11 @@ export default function ColumnGroupingTable() {
   const [isEdit, setEdit] = React.useState(false)
   const [editValue, setEditValue] = React.useState({})
   const [deleteValue, setDelete] = React.useState(false)
+  const [curValue, setCurValue] = React.useState(0)
+  const [nextValue, setnextValue] = React.useState(7)
+  const [OrgData, setOrgData] = React.useState([])
+  const [Todate,setTodate]=React.useState(new Date())
+  const [Fromdate,setFromdate]=React.useState(new Date())
   // React.useEffect(() => {
   //   axios.get('https://goweb-1c5e7-default-rtdb.firebaseio.com/flower.json').then(res => {
   //     setdatainState(res.data)
@@ -113,6 +122,10 @@ export default function ColumnGroupingTable() {
       console.error(error);
     })
   }, [open, deleteValue])
+  React.useEffect(()=>{
+    var data=OrgData.filter(item=>new Date(Fromdate)<= new Date(item.date) && new Date(item.date)<=new Date(Todate))
+    setData(data)
+  },[Todate,Fromdate])
   function setdatainState(data) {
     let arr = [];
     for (let key in data) {
@@ -130,11 +143,15 @@ export default function ColumnGroupingTable() {
 
     }
     console.log(arr)
-    setData(arr)
+    setOrgData(arr)
+    setData(arr.slice(curValue,nextValue))
     setLoading(false)
   }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  console.log(OrgData.slice(nextValue*newPage,nextValue*(newPage+1)),nextValue*newPage,nextValue*(newPage+1))
+    setData(OrgData.slice(nextValue*newPage,nextValue*(newPage+1)))
+    
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -155,6 +172,9 @@ export default function ColumnGroupingTable() {
     setEditValue(row)
     console.log('edit', row)
   }
+  const updateDate=(date)=>{
+    console.log(date.target.value)
+  }
   const handleClose = () => {
     setopen(false)
   }
@@ -168,58 +188,102 @@ export default function ColumnGroupingTable() {
           <div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '70%' }} className="lds-dual-ring"></div>
         )}</Hidden>
       </div>
-      {!loading && (<div>
-        {console.log(data)}
-
-        <TableContainer sx={{ maxHeight: 640 }}>
-          <Table aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ top: 57, minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-                <TableCell>Edit</TableCell>
-                <TableCell>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {!loading && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-
-                      return (
-                        <TableCell key={column.id} align={column.align} >
-                          <span style={{ color: column.id == 'date' ? 'red' : 'black' }}> {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}</span>
-                        </TableCell>
-                      );
-                    })}
-                    <TableCell>
-                      <EditSharpIcon color='success' style={{ cursor: 'pointer' }} onClick={() => editForm(row)} />
+      {!loading && (<div style={{ padding: '20px' }}>
+        <Card style={{height:'200px'}}>
+          <Grid container style={{ padding: '20px' }}>
+            <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
+            <TextField  id="date" type='date'  onChange={(event)=>setFromdate(event.target.value)} value={Fromdate} /></Grid>
+            <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
+            <TextField  id="date" type='date'   onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
+            
+          </Grid>
+        </Card>
+        <Hidden smDown>
+          <TableContainer sx={{ maxHeight: 640 }}>
+            <Table aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ top: 57, minWidth: column.minWidth }}
+                    >
+                      {column.label}
                     </TableCell>
-                    <TableCell>
-                      <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={() => deleteData(row)} />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                  ))}
+                  <TableCell>Edit</TableCell>
+                  <TableCell>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {!loading && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
+                      {columns.map((column) => {
+                        const value = row[column.id];
 
-            </TableBody>
-          </Table>
-        </TableContainer>
+                        return (
+                          <TableCell key={column.id} align={column.align} >
+                            <span style={{ color: column.id == 'date' ? 'red' : 'black' }}> {column.format && typeof value === 'number'
+                              ? column.format(value)
+                              : value}</span>
+                          </TableCell>
+                        );
+                      })}
+                      <TableCell>
+                        <EditSharpIcon color='success' style={{ cursor: 'pointer' }} onClick={() => editForm(row)} />
+                      </TableCell>
+                      <TableCell>
+                        <DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={() => deleteData(row)} />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+
+              </TableBody>
+            </Table>
+          </TableContainer></Hidden>
+        <Hidden mdUp>
+          <Grid item style={{ padding: '10px' }}>{
+            data.map(item => {
+              return (
+                <Card style={{ height: '100px', marginBottom: '10px', border: '2px solid blue' }}>
+                  <Grid container style={{ padding: '10px' }}>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Kilogram</span>
+                      <span style={{ fontSize: '16px', fontWeight: 400, fontFamily: 'Roboto' }}> {item.kg}</span>
+                    </Grid>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Date</span>
+                      <span style={{ fontSize: '16px', fontWeight: 400, fontFamily: 'Roboto', color: 'blue' }}> {item.date}</span>
+                    </Grid>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Cost</span>
+                      <span style={{ fontSize: '16px', fontWeight: 400, fontFamily: 'Roboto' }}>    {item.cost}</span>
+                    </Grid>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Rate</span>
+                      <span style={{ fontSize: '16px', fontWeight: 400, fontFamily: 'Roboto' }}>  {item.rate}</span>
+                    </Grid>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Edit</span>
+                      <span> <EditSharpIcon color='success' style={{ cursor: 'pointer' }} onClick={() => editForm(item)} /></span>
+                    </Grid>
+                    <Grid xs={4} style={{ display: 'inline-grid' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'Roboto' }}>Delete</span>
+                      <span><DeleteIcon color='error' style={{ cursor: 'pointer' }} onClick={() => deleteData(item)} /></span>
+                    </Grid>
+
+                  </Grid>
+                </Card>
+              )
+            })
+          }</Grid></Hidden>
         <TablePagination
           rowsPerPageOptions={[7, 25, 100]}
           component="div"
-          count={data.length}
+          count={OrgData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
