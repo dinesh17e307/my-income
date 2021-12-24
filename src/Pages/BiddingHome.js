@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FamilyRestroomRounded } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 const firebaseConfig = {
     apiKey: "AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA",
@@ -206,6 +207,7 @@ class BiddingHome extends React.PureComponent {
     getAllBiddingArray = () => {
         return (
             <>
+             <LogoCard/>
                 {!this.state.loading && Object.keys(this.state.bidArray).map(items => {
                     var data = this.state.bidArray[items]
                     return (

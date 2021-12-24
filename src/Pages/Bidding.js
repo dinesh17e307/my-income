@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { getDatabase, ref, child, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import CommonStyle from '../Styles/CommonStyle'
+import LogoCard from '../Pages/LogoCard';
 import { map } from '@firebase/util';
 const querystring = require('querystring');
 const firebaseConfig = {
@@ -182,8 +183,8 @@ class Bidding extends Component {
     }
     render() {
         const { classes } = this.props;
-        return (
-
+        return (<>
+<LogoCard/>
 
             <Grid style={{ margin: '20px' }}>
                 <Grid style={{ fontSize: '20px', color: '#9c27b0' }}>{`Total Amount: ${this.state.totalAmount}`}</Grid>
@@ -268,7 +269,7 @@ class Bidding extends Component {
                     </Card>
                 )}
                 </Grid>
-            </Grid>
+            </Grid></>
         )
     }
 }

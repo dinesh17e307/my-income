@@ -5,6 +5,7 @@ import AddListStyle from '../Styles/AddList'
 import '../Spinner/Spinner.css'
 import { getDatabase, ref, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -104,6 +105,8 @@ class AddListMilk extends Component {
         console.log(this.state)
         const { classes } = this.props;
         return (
+            <>
+            <LogoCard/>
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 <div>
                     {this.state.loading && (<div style={{ textAlign: 'center', marginLeft: '50%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
@@ -133,7 +136,7 @@ class AddListMilk extends Component {
                     <p onClick={this.goToShowList} style={{ textAlign: 'center', color: 'blue', fontSize: '16px', fontWeight: 700, cursor: 'pointer' }}>
                         Go to TableList</p>
                 </Grid>
-            </Grid>
+            </Grid></>
         )
     }
 }

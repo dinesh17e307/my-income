@@ -19,6 +19,7 @@ import { initializeApp } from "firebase/app";
 import { Button, Grid, Card } from '@material-ui/core';
 import AddWeeklyIncome from './AddWeeklyIncome';
 import AddIcon from '@mui/icons-material/Add';
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -164,7 +165,7 @@ export default function ColumnGroupingTable() {
   }
   return (
     <>
-
+      <LogoCard />
       <div>
         <Grid item style={{ marginBottom: '15px', marginTop: '10px' }}>
           <Button color="primary" variant="outlined" onClick={openIncomeDialog}><AddIcon />ADD InCOME</Button>

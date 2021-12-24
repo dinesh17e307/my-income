@@ -24,6 +24,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import '../Spinner/Spinner.css'
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 class Home extends Component {
     state = {
@@ -177,13 +178,10 @@ class Home extends Component {
         )
     }
     render() {
-        return (<div style={
-            {
-                marginTop: '20px'
-            }
-        } >
-
-
+        return (<div 
+         >
+         
+             <LogoCard/>
             {
                 this.state.loading && (<div style={
                     {

@@ -16,6 +16,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddList from './AddList'
 import { getDatabase, ref, child, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -142,6 +143,7 @@ export default function ColumnGroupingTable() {
     }
     return (
         <>
+         <LogoCard/>
             <div>
                 {loading && (<div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
             </div>

@@ -5,6 +5,7 @@ import AddListStyle from '../Styles/AddList'
 import '../Spinner/Spinner.css'
 import { getDatabase, ref, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
+import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -104,6 +105,7 @@ class AddWeeklyIncome extends Component {
         console.log(this.state)
         const { classes } = this.props;
         return (
+            <> <LogoCard/>
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 <div>
                     {this.state.loading && (<div style={{ textAlign: 'center', marginLeft: '50%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
@@ -122,7 +124,7 @@ class AddWeeklyIncome extends Component {
                 </Grid>
                 )
                 }
-            </Grid>)
+            </Grid></>)
     }
 }
 export default withStyles(AddListStyle)(AddWeeklyIncome)

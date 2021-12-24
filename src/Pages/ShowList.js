@@ -20,7 +20,9 @@ import { Hidden, Grid, Card, Button } from '@material-ui/core';
 import { TextField } from '@mui/material';
 import "react-datetime/css/react-datetime.css";
 import Datetime from 'react-datetime';
+import LogoCard from '../Pages/LogoCard';
 import { useState } from 'react';
+import FormStyle from '../Styles/AddList'
 const querystring = require('querystring');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -180,6 +182,7 @@ export default function ColumnGroupingTable() {
   }
   return (
     <>
+     <LogoCard/>
       <div>
         <Hidden smDown>{loading && (
           <div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '20%' }} className="lds-dual-ring"></div>
@@ -192,9 +195,9 @@ export default function ColumnGroupingTable() {
         <Card style={{height:'200px'}}>
           <Grid container style={{ padding: '20px' }}>
             <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
-            <TextField  id="date" type='date'  onChange={(event)=>setFromdate(event.target.value)} value={Fromdate} /></Grid>
+            <TextField  id="date" className={FormStyle.width} type='date'fullWidth  onChange={(event)=>setFromdate(event.target.value)} value={Fromdate} /></Grid>
             <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
-            <TextField  id="date" type='date'   onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
+            <TextField className={FormStyle.width} id="date" type='date' fullWidth  onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
             
           </Grid>
         </Card>
