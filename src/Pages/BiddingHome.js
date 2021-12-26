@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FamilyRestroomRounded } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import LogoCard from '../Pages/LogoCard';
 const querystring = require('querystring');
 const firebaseConfig = {
@@ -204,17 +205,31 @@ class BiddingHome extends React.PureComponent {
         window.sessionStorage.setItem('currentBid', JSON.stringify(data))
         this.props.history.push(`/startBid?user=${this.state.userName}`)
     }
+    deleteBid=( bidName,event)=>{
+        this.setState({
+            loading: true,
+            
+        } )
+        event.stopPropagation()
+        const db = getDatabase();
+        set(ref(db, `bidding/${this.state.userName}/` + bidName), null);
+        this.setState({
+            loading: false,
+            
+        } ,() => this.fetchValue())
+    }
     getAllBiddingArray = () => {
         return (
             <>
-             <LogoCard/>
+            
                 {!this.state.loading && Object.keys(this.state.bidArray).map(items => {
                     var data = this.state.bidArray[items]
                     return (
                         <Card style={{ margin: '10px', boxShadow: '10px 3px 10px #00897b', minHeight: '160px', backgroundColor: '#bbdefb', marginBottom: '15px' }} onClick={() => this.navigateToStart(data)} >
                             <Grid container style={{ color: 'blue', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
-                                <Grid item xs={6} lg={6} >{data.bidOwner}</Grid>
-                                <Grid item xs={6} lg={6}>{data.startDate}</Grid>
+                                <Grid item xs={5} lg={5} >{data.bidOwner}</Grid>
+                                <Grid item xs={5} lg={5}>{data.startDate}</Grid>
+                                <Grid item xs={2} lg={2}><DeleteIcon style={{color:"red"}} onClick={( event)=>this.deleteBid(data.nickName, event)}/></Grid>
                             </Grid>
                             <Grid container style={{ color: 'red', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
                                 <Grid item xs={6} lg={6}>{`NickName: ${data.nickName}`}</Grid>
@@ -266,6 +281,7 @@ class BiddingHome extends React.PureComponent {
 
         return (
             <>
+             <LogoCard title={'Bidding'}/>
 
                 <Grid style={{ margin: '20px' }}>
                     <Button className={classes.commonbutton} onClick={() => this.setState({

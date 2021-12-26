@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { getDatabase, ref, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import { getAuth, sendEmailVerification, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import LogoCard from '../Pages/LogoCard';
 var firebase = require("firebase/app");
 const firebaseConfig = {
     apiKey: "AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA",
@@ -108,7 +109,10 @@ export class SIgnupPage extends Component {
     render() {
         const { classes } = this.props;
         return (
+            <>
+            <LogoCard title={'SignUp'}/>
             <Grid item lg={11} md={11} sm={11} xs={12} className={classes.outerContainer}>
+                
                 <Grid container className={classes.marginFields} item lg={12} xs={12}>
                     <Grid lg={12} xs={12}>
                         <TextField className={classes.width} variant='outlined' inputProps={{ style: { color: 'red' } }} type="text" placeHolder="(e.g) dinesh@gmail.com" value={'Please Register Yourself in this portal ,you are not Excisting user'} />
@@ -144,6 +148,7 @@ export class SIgnupPage extends Component {
 
 
             </Grid>
+            </>
         )
     }
 }
