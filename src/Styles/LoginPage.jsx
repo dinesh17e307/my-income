@@ -36,12 +36,12 @@ const LoginPageStyle = (theme) => ({
     '&:focus': {
       backgroundColor: 'white !important',
       color: '#00acc1 !important',
-      border: '1px solid #00acc19 !important',
+      border: '1px solid #d500f9 !important',
     },
     '&:disabled': {
       backgroundColor: '#d500f9 !important',
       color: 'white !important',
-      border: '1px solid blue !important',
+      border: '1px solid #d500f9 !important',
     }
 
   },

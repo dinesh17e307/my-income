@@ -14,15 +14,15 @@ class LogoCard extends Component {
     render() {
         const{classes}=this.props;
         return (
-            <Grid container className={classes.margin}>
-                <Card style={{ backgroundColor: 'blue', width: '100%', height: '70px', textAlign: 'center' ,display:'flex',justifyContent:'space-between'}}>
+            <Grid container className={classes.margin}style={{ backgroundColor: 'white', width: '100%', height: '70px'}}>
+                
                     <Grid item>
-                    
+                    <img src="/tablogo.png" width='60px' height="60px" />
                     </Grid>
-                    <Grid item>
-                       
+                    <Grid item style={{fontWeight:600,fontFamily:'Roboto',fontSize:'18px',marginTop:'20px'}}>
+                       {this.props.title}
                     </Grid>
-                </Card>
+               
 
             </Grid>
         )

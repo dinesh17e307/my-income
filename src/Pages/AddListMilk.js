@@ -106,7 +106,7 @@ class AddListMilk extends Component {
         const { classes } = this.props;
         return (
             <>
-            <LogoCard/>
+            
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 <div>
                     {this.state.loading && (<div style={{ textAlign: 'center', marginLeft: '50%', marginTop: '10%' }} className="lds-dual-ring"></div>)}

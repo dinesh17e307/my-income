@@ -162,7 +162,7 @@ export default function ColumnGroupingTable() {
   }
   return (
     <>
-     <LogoCard/>
+     <LogoCard title={'Milk List'} />
       <div>
         {loading && (<div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '10%' }} className="lds-dual-ring"></div>)}
       </div>

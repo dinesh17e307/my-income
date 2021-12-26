@@ -5,7 +5,7 @@ const CommonStyle = (theme) => ({
     width: '120px',
     height: '40px',
     color: 'white !important',
-    border: `1px solid #028DE1 !important`,
+    border: `1px solid #d500f9 !important`,
     background: '#d500f9',
     '&:hover': {
       backgroundColor: '#d500f9 !important',
@@ -19,7 +19,7 @@ const CommonStyle = (theme) => ({
     '&:disabled': {
       backgroundColor: 'white !important',
       color: '#00acc1 !important',
-      border: '1px solid blue !important',
+      border: '1px solid #d500f9 !important',
     }
     },
     commonbuttonClose:{

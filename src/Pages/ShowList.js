@@ -97,6 +97,7 @@ export default function ColumnGroupingTable() {
   const [OrgData, setOrgData] = React.useState([])
   const [Todate,setTodate]=React.useState(new Date())
   const [Fromdate,setFromdate]=React.useState(new Date())
+  const [WeekIncome, setWeekIncome] = React.useState(0)
   // React.useEffect(() => {
   //   axios.get('https://goweb-1c5e7-default-rtdb.firebaseio.com/flower.json').then(res => {
   //     setdatainState(res.data)
@@ -125,7 +126,12 @@ export default function ColumnGroupingTable() {
     })
   }, [open, deleteValue])
   React.useEffect(()=>{
+    let sum=0
     var data=OrgData.filter(item=>new Date(Fromdate)<= new Date(item.date) && new Date(item.date)<=new Date(Todate))
+    let weekCost=data.map(item=>{
+      sum+=item.cost
+    })
+    setWeekIncome(sum)
     setData(data)
   },[Todate,Fromdate])
   function setdatainState(data) {
@@ -182,7 +188,7 @@ export default function ColumnGroupingTable() {
   }
   return (
     <>
-     <LogoCard/>
+     <LogoCard title={'Sambangi List'}/>
       <div>
         <Hidden smDown>{loading && (
           <div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '20%' }} className="lds-dual-ring"></div>
@@ -198,7 +204,9 @@ export default function ColumnGroupingTable() {
             <TextField  id="date" className={FormStyle.width} type='date'fullWidth  onChange={(event)=>setFromdate(event.target.value)} value={Fromdate} /></Grid>
             <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
             <TextField className={FormStyle.width} id="date" type='date' fullWidth  onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
-            
+            {WeekIncome>0&&(<Grid xs={12} lg={6} style={{ marginBottom: "20px",fontWeight:400,fontFamily:"Roboto" }}>
+             Week Income:   <span style={{color:"blue",fontWeight:600,fontFamily:'Roboto'}}>&#8377;{WeekIncome}</span>
+            </Grid>)}
           </Grid>
         </Card>
         <Hidden smDown>
@@ -283,6 +291,18 @@ export default function ColumnGroupingTable() {
               )
             })
           }</Grid></Hidden>
+          <Hidden mdUp>
+        <TablePagination
+          rowsPerPageOptions={[]}
+          component="div"
+          count={OrgData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        </Hidden>
+        <Hidden smDown>
         <TablePagination
           rowsPerPageOptions={[7, 25, 100]}
           component="div"
@@ -292,6 +312,7 @@ export default function ColumnGroupingTable() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        </Hidden>
       </div>
 
       )}

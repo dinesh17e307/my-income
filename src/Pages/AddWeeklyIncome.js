@@ -105,7 +105,7 @@ class AddWeeklyIncome extends Component {
         console.log(this.state)
         const { classes } = this.props;
         return (
-            <> <LogoCard/>
+            <> <LogoCard title={'Weekly Income'}/>
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 <div>
                     {this.state.loading && (<div style={{ textAlign: 'center', marginLeft: '50%', marginTop: '10%' }} className="lds-dual-ring"></div>)}

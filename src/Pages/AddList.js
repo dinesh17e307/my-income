@@ -106,7 +106,7 @@ class AddList extends Component {
         const { classes } = this.props;
         return (
             <>
-            <LogoCard/>
+            <LogoCard title={'Add List'}/>
             <Grid item style={{ margin: '50px' }} className={classes.outerContainer}>
                 
                 <div>
@@ -129,7 +129,7 @@ class AddList extends Component {
                     </Grid>
 
                     <Grid lg={6} xs={12}>
-                        <Button className={classes.loginButton} onClick={this.sendListToDB} disabled={!this.state.enable}>சேர்</Button>
+                        <Button className={classes.loginButton} onClick={this.sendListToDB} disabled={!this.state.enable}>Add</Button>
                     </Grid>
                 </Grid>
                 )}
