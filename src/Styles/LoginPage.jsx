@@ -46,26 +46,32 @@ const LoginPageStyle = (theme) => ({
 
   },
   signupButton: {
-    borderRadius: '25px',
+    borderRadius: '5px',
+    marginRight: '10px',
     width: '120px',
     height: '40px',
-    color: 'white',
-    borderColor: 'skyblue',
-    background: '#028DE1',
+    color: 'white !important',
+    border: `1px solid #028DE1 !important`,
+    background: '#d500f9',
     '&:hover': {
-      backgroundColor: '#028DE8 !important',
+      backgroundColor: '#d500f9 !important',
       color: 'white !important',
     },
     '&:focus': {
       backgroundColor: 'white !important',
       color: '#00acc1 !important',
-      border: '1px solid #00acc19 !important',
+      border: '1px solid #d500f9 !important',
     },
     '&:disabled': {
-      backgroundColor: 'lightgrey !important',
-      color: '#00acc1 !important',
-      border: '1px solid lightgrey !important',
+      backgroundColor: '#d500f9 !important',
+      color: 'white !important',
+      border: '1px solid #d500f9 !important',
     }
+  },
+  errorItem:{
+fontSize:'14px',
+fontWeight:500,
+color:'red'
   },
   width: {
     width: '90%',

@@ -21,15 +21,53 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const arr = ['', undefined, null]
 export class SIgnupPage extends Component {
     state = {
         error: false,
-        openModal: false
+        openModal: false,
+        enable: false,
+
     }
-    onChangehandler = (event) => {
-        this.setState({
+    onChangehandler = async (event) => {
+        let id = event.target.id;
+        let value = event.target.value
+        await this.setState({
             [event.target.id]: event.target.value
         })
+        if(!(this.state.phonenumber&&this.state.phonenumber.length==10)){
+     this.setState({
+         phoneErr:true
+     })
+        }
+        else{
+            this.setState({
+                phoneErr:false
+            })
+        }
+      if(id=='password'||id=='rePassword'){
+            if(this.state.password === this.state.rePassword) {
+                this.setState({ errrePassword: false })
+            }
+            else {
+                this.setState({ errrePassword: true })
+            }
+        
+      }
+        if (!arr.includes(this.state.email) && !arr.includes(this.state.UserName) && !arr.includes(this.state.password) 
+        && !arr.includes(this.state.rePassword) && !arr.includes(this.state.phonenumber)&&!this.state.errrePassword&&!this.state.phoneErr
+        ) {
+            console.log(this.state)
+            this.setState({
+                enable: true
+            })
+            
+        }
+        else{
+            this.setState({
+                enable: false
+            })
+        }
     }
     signup = async () => {
         localStorage.setItem('emailForSignIn', this.state.email)
@@ -110,44 +148,46 @@ export class SIgnupPage extends Component {
         const { classes } = this.props;
         return (
             <>
-            <LogoCard title={'SignUp'}/>
-            <Grid item lg={11} md={11} sm={11} xs={12} className={classes.outerContainer}>
-                
-                <Grid container className={classes.marginFields} item lg={12} xs={12}>
-                    <Grid lg={12} xs={12}>
-                        <TextField className={classes.width} variant='outlined' inputProps={{ style: { color: 'red' } }} type="text" placeHolder="(e.g) dinesh@gmail.com" value={'Please Register Yourself in this portal ,you are not Excisting user'} />
+                <LogoCard title={'SignUp'} />
+                <Grid item lg={11} md={11} sm={11} xs={12} className={classes.outerContainer}>
+
+                    <Grid container className={classes.marginFields} item lg={12} xs={12}>
+                        <Grid lg={12} xs={12}>
+                            <TextField className={classes.width} variant='outlined' inputProps={{ style: { color: 'red' } }} type="text" placeHolder="(e.g) dinesh@gmail.com" value={'Please Register Yourself in this portal ,you are not Excisting user'} />
+                        </Grid>
+                        <Grid lg={6} xs={12}>
+                            <TextField className={classes.width} ty variant='standard' id="UserName" required size="small" label="UserName" type="text" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
+                        </Grid>
+                        <Grid lg={6} xs={12}>
+                            <TextField className={classes.width} variant='standard' id="email" size="small" required label="Email" type="email" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
+                        </Grid>
+                        <Grid lg={6} xs={12}>
+                            <TextField className={classes.width} variant='standard' id="phonenumber" size="small" required label="PhoneNumber" type="phonenumber" placeHolder="1234567899" onChange={(event) => this.onChangehandler(event)} />
+                            <p>{this.state.phoneErr && (<p className={classes.errorItem}>phoneNumber should be 10 digits </p>)}</p>
+                        </Grid>
+                        <Grid lg={6} xs={12} >
+                            <TextField className={classes.width} variant='standard' id="password" size="small" required type="password" placeHolder="password" label="Password" onChange={(event) => this.onChangehandler(event)} />
+                        </Grid>
+                        <Grid lg={6} xs={12} >
+                            <TextField className={classes.width} variant='standard' id="rePassword" size="small" required type="password" placeHolder="password" label="Re-enetr Password" onChange={(event) => this.onChangehandler(event)} />
+                            <p>{this.state.errrePassword && (<p className={classes.errorItem}>Password not matched </p>)}</p>
+                        </Grid>
                     </Grid>
-                    <Grid lg={6} xs={12}>
-                        <TextField className={classes.width} variant='standard' id="UserName" size="small" label="UserName" type="text" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
+
+
+                    <Grid container className={classes.marginFields}>
+
+                        {this.state.error && (<div style={{ color: 'red' }}>{this.state.errMsg}</div>)}
+
+                        <Grid item lg={12} className={classes.outerButton}>
+
+                            <Button className={classes.signupButton} disabled={!this.state.enable } onClick={this.signup}>SignUp</Button>
+                        </Grid>
+
                     </Grid>
-                    <Grid lg={6} xs={12}>
-                        <TextField className={classes.width} variant='standard' id="email" size="small" label="Email" type="email" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
-                    </Grid>
-                    <Grid lg={6} xs={12}>
-                        <TextField className={classes.width} variant='standard' id="phonenumber" size="small" label="PhoneNumber" type="phonenumber" placeHolder="1234567899" onChange={(event) => this.onChangehandler(event)} />
-                    </Grid>
-                    <Grid lg={6} xs={12} >
-                        <TextField className={classes.width} variant='standard' id="password" size="small" type="password" placeHolder="password" label="Password" onChange={(event) => this.onChangehandler(event)} />
-                    </Grid>
-                    <Grid lg={6} xs={12} >
-                        <TextField className={classes.width} variant='standard' id="rePassword" size="small" type="password" placeHolder="password" label="Re-enetr Password" onChange={(event) => this.onChangehandler(event)} />
-                    </Grid>
+
+
                 </Grid>
-
-
-                <Grid container className={classes.marginFields}>
-
-                    {this.state.error && (<div style={{ color: 'red' }}>{this.state.errMsg}</div>)}
-
-                    <Grid item lg={12} className={classes.outerButton}>
-
-                        <Button className={classes.signupButton} onClick={this.signup}>SignUp</Button>
-                    </Grid>
-
-                </Grid>
-
-
-            </Grid>
             </>
         )
     }

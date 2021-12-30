@@ -31,19 +31,20 @@ class Home extends Component {
         userAllowed: [{
             label: 'Sambangi',
             url: '/sambangi',
-            tamil: 'சம்பங்கி ',
+            
             dev: false,
+            bg:'sampanki.jpg'
         },
         {
             label: 'Milk',
             url: '/milk',
-            tamil: 'பால்',
+            bg:'/milk1.jpg',
             dev: false
         },
         {
             label: 'Bidding',
             url: '/bidHome',
-            tamil: 'ஏலம்',
+            bg:'/bid.jpeg',
             dev: true
         },
 
@@ -145,6 +146,8 @@ class Home extends Component {
                                 border: '1px solid #028DE1',
                                 color: '#028DE1',
                                 backgroundColor: 'white',
+                                backgroundImage: item.bg&&`url(${item.bg})`,
+                                backgroundSize:'100% 100%'
                             }
                         } >
                         <div style={
