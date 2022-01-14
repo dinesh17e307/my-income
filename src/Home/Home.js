@@ -146,7 +146,7 @@ class Home extends Component {
                                 border: '1px solid #028DE1',
                                 color: '#028DE1',
                                 backgroundColor: 'white',
-                                backgroundImage: item.bg&&`url(${item.bg})`,
+                                
                                 backgroundSize:'100% 100%'
                             }
                         } >

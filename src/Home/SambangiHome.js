@@ -18,17 +18,17 @@ class SambangiHome extends Component {
             {
                 label: 'Add List',
                 url: '/addlist',
-                tamil: 'பட்டியல் சேர்க்கவும்'
+                tamil: ''
             },
             {
                 label: 'ShowList',
                 url: '/showlist',
-                tamil: 'பட்டியல் காட்டு'
+                tamil: ''
             },
             {
                 label: 'Weekly Income',
                 url: '/showWeeklyincome',
-                tamil: 'வார வருமானம்'
+                tamil: ''
             }
 
         ], open: false,

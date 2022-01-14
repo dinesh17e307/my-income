@@ -299,7 +299,7 @@ class BiddingHome extends React.PureComponent {
                 {
                     this.state.openModal && (
                         <Dialog open >
-                            <DialogTitle>ஏலத்தைத் தொடங்குவதற்கான விவரங்கள்   <CloseIcon style={{ cursor:'pointer', color:'blue',width:'30px'}} onClick={()=>this.setState({
+                            <DialogTitle>Details to start Bid   <CloseIcon style={{ cursor:'pointer', color:'blue',width:'30px',float:'right'}} onClick={()=>this.setState({
                                             openModal:false
                                         })}/></DialogTitle>
                             <DialogContent>

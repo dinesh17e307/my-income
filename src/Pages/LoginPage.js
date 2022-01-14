@@ -5,6 +5,7 @@ import axios from 'axios'
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Carousel from './Carousel';
 class LoginPage extends PureComponent {
    state = {
       errMsg: '',
@@ -100,9 +101,9 @@ class LoginPage extends PureComponent {
 
 
                   <Grid item lg={12} className={classes.outerButton} container>
-                     <Grid item lg={3} xs={12}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
+                     <Grid item lg={3} xs={6}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
 
-                     <Grid item lg={9} xs={12}> <p style={{ marginTop: '5px' }}>if you have not Registered? <a href="/signup" style={{ color: 'blue' }}>signup</a></p></Grid>
+                     <Grid item lg={3} xs={6} > <Button className={classes.loginButton} onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
 
                   </Grid>
                   {this.state.notVerified && (<Grid style={{ color: 'red' }}>Please verify link sent to mail</Grid>)}
@@ -121,6 +122,7 @@ class LoginPage extends PureComponent {
                }} onClick={() => this.setState({
                   manjalOpen: true
                })}>மஞ்சள் விலை</p >
+               <Carousel/>
             </Grid>
             <Modal open={this.state.manjalOpen} ><Grid style={{ marginTop: '100px', textAlign: 'center' }}>
                <p><CancelOutlinedIcon style={{ color: "blue", width: "100px" }} onClick={() => this.setState({ manjalOpen: false })} /></p>

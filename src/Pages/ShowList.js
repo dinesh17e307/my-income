@@ -200,9 +200,11 @@ export default function ColumnGroupingTable() {
       {!loading && (<div style={{ padding: '20px' }}>
         <Card style={{height:'200px'}}>
           <Grid container style={{ padding: '20px' }}>
-            <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
+            <Grid xs={12} lg={5} style={{ marginBottom: "20px" }}>
+              <Grid xs={12} lg={6}>FromDate</Grid>
             <TextField  id="date" className={FormStyle.width} type='date'fullWidth  onChange={(event)=>setFromdate(event.target.value)} value={Fromdate} /></Grid>
-            <Grid xs={12} lg={6} style={{ marginBottom: "20px" }}>
+            <Grid xs={12} lg={5} style={{ marginBottom: "20px" ,marginLeft:'40px'}}>
+            <Grid xs={12} lg={6}>ToDate</Grid>
             <TextField className={FormStyle.width} id="date" type='date' fullWidth  onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
             {WeekIncome>0&&(<Grid xs={12} lg={6} style={{ marginBottom: "20px",fontWeight:400,fontFamily:"Roboto" }}>
              Week Income:   <span style={{color:"blue",fontWeight:600,fontFamily:'Roboto'}}>&#8377;{WeekIncome}</span>
