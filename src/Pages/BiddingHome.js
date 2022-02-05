@@ -172,6 +172,9 @@ class BiddingHome extends React.PureComponent {
         }
         if (event.target.id === 'members') {
             let arr = []
+            console.log(this.state.members,this.state.totalCount)
+            
+                
             for (let i of event.target.value.split(',')) {
                 arr.push({
                     name: i,
@@ -180,13 +183,23 @@ class BiddingHome extends React.PureComponent {
                     Sno: '',
                     amountArray: ['0']
                 })
-            }
-           
+            
+           console.log(arr)
+           if(arr.length<=parseInt(this.state.totalCount)){
                 this.setState({
-                    [event.target.id]: arr
+                    [event.target.id]: arr,
+                    [`err${event.target.id}`]:false
                 })
+            }
+            
+                else{
+                    this.setState({
+                        [`err${event.target.id}`]:true
+                    })
+                }
             
         }
+    }
         else {
             this.setState({
                 [event.target.id]: event.target.value
@@ -227,7 +240,7 @@ class BiddingHome extends React.PureComponent {
                     return (
                         <Card style={{ margin: '10px', boxShadow: '10px 3px 10px #00897b', minHeight: '160px', backgroundColor: '#bbdefb', marginBottom: '15px' }} onClick={() => this.navigateToStart(data)} >
                             <Grid container style={{ color: 'blue', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
-                                <Grid item xs={5} lg={5} >{data.bidOwner}</Grid>
+                                <Grid item xs={5} lg={5} >{'Start Date'}</Grid>
                                 <Grid item xs={5} lg={5}>{data.startDate}</Grid>
                                 <Grid item xs={2} lg={2}><DeleteIcon style={{color:"red"}} onClick={( event)=>this.deleteBid(data.nickName, event)}/></Grid>
                             </Grid>
@@ -278,7 +291,7 @@ class BiddingHome extends React.PureComponent {
     }
     render() {
         const { classes } = this.props;
-
+var enable=this.state.errmembers
         return (
             <>
              <LogoCard title={'Bidding'}/>
@@ -320,14 +333,14 @@ class BiddingHome extends React.PureComponent {
                                         <TextField className={classes.width} id="totalCount" variant='outlined' label="மொத்த எண்ணிக்கை" placeHolder="rate" required onChange={(event) => this.onChangehandler(event)} />
                                     </Grid>
                                     <Grid xs={12} lg={6}>
-                                        <TextField className={classes.width} id="members" variant='outlined' label="உறுப்பினர்கள்" multiline required
+                                        <TextField className={classes.width} id="members" variant='outlined' error={this.state.errmembers?'Members more than total count':''}  label="உறுப்பினர்கள்" multiline required
                                             maxRows={9} placeHolder="rate" onChange={(event) => this.onChangehandler(event)} />
                                     </Grid>
                                     <Grid xs={12} lg={6}>
                                         <TextField className={classes.width} disabled id="indAmount" value={this.state.indAmount} variant='outlined' required placeHolder="rate" onChange={(event) => this.onChangehandler(event)} />
                                     </Grid>
                                     <Grid xs={12} lg={6}>
-                                        <Button className={classes.commonbutton} onClick={this.AddDetails} variant="outlined" >Add</Button>
+                                        <Button className={classes.commonbutton} disabled={enable}onClick={this.AddDetails} variant="outlined" >Add</Button>
                                        
                                     </Grid>
 

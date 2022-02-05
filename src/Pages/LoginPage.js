@@ -103,7 +103,7 @@ class LoginPage extends PureComponent {
                   <Grid item lg={12} className={classes.outerButton} container>
                      <Grid item lg={3} xs={6}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
 
-                     <Grid item lg={3} xs={6} > <Button className={classes.loginButton} onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
+                     <Grid item lg={3} xs={6} > <Button className={classes.signupButton} variant='text' onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
 
                   </Grid>
                   {this.state.notVerified && (<Grid style={{ color: 'red' }}>Please verify link sent to mail</Grid>)}
@@ -122,7 +122,18 @@ class LoginPage extends PureComponent {
                }} onClick={() => this.setState({
                   manjalOpen: true
                })}>மஞ்சள் விலை</p >
-               <Carousel/>
+               
+            </Grid>
+            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",position:'absolute',bottom:0,color:'white'}}>
+                  <Grid container style={{fontSize:'20px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
+                     <p style={{fontFamily:'Roboto',fontWeight:500,fontSize:'15px'}}>More Details.....</p>
+                  <p><a href="dheena5880@gmail.com">contact: dheena5880@gmail.com</a></p>
+                  </Grid>
+                  <Grid style={{bottom:0,position:'absolute',width:'100%'}}>
+                         
+                  <p style={{textAlign:"center"}}>&copy;goWeb@2021</p>
+                         
+                  </Grid>
             </Grid>
             <Modal open={this.state.manjalOpen} ><Grid style={{ marginTop: '100px', textAlign: 'center' }}>
                <p><CancelOutlinedIcon style={{ color: "blue", width: "100px" }} onClick={() => this.setState({ manjalOpen: false })} /></p>

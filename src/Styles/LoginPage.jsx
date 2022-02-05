@@ -26,22 +26,15 @@ const LoginPageStyle = (theme) => ({
     marginRight: '10px',
     width: '120px',
     height: '40px',
-    color: 'white !important',
-    border: `1px solid #028DE1 !important`,
-    background: '#d500f9',
+    color: '#d500f9 !important',
     '&:hover': {
-      backgroundColor: '#d500f9 !important',
-      color: 'white !important',
+      color: 'grey !important',
     },
     '&:focus': {
-      backgroundColor: 'white !important',
-      color: '#00acc1 !important',
-      border: '1px solid #d500f9 !important',
+      color: 'grey !important',
     },
     '&:disabled': {
-      backgroundColor: '#d500f9 !important',
-      color: 'white !important',
-      border: '1px solid #d500f9 !important',
+      color: 'grey !important',
     }
 
   },
@@ -50,22 +43,15 @@ const LoginPageStyle = (theme) => ({
     marginRight: '10px',
     width: '120px',
     height: '40px',
-    color: 'white !important',
-    border: `1px solid #028DE1 !important`,
-    background: '#d500f9',
+    color: '#d500f9 !important',
     '&:hover': {
-      backgroundColor: '#d500f9 !important',
-      color: 'white !important',
+      color: 'grey !important',
     },
     '&:focus': {
-      backgroundColor: 'white !important',
-      color: '#00acc1 !important',
-      border: '1px solid #d500f9 !important',
+      color: 'grey !important',
     },
     '&:disabled': {
-      backgroundColor: '#d500f9 !important',
-      color: 'white !important',
-      border: '1px solid #d500f9 !important',
+      color: 'grey !important',
     }
   },
   errorItem:{

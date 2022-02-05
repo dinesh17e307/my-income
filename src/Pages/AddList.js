@@ -114,15 +114,17 @@ class AddList extends Component {
                 </div>
                 {!this.state.loading && (<Grid container >
                     <Grid item lg={6} xs={12} >
-                        <TextField className={classes.width} inputProps={{
+                        <TextField className={classes.width}  inputProps={{
                             style: {
                                 width: '100%',
                                 fontSize: '14px'
-                            }
+                            },
+                            inputMode: 'numeric'
+                            
                         }} variant='standard' label="எடை" id="kg" placeHolder="kilogram" onChange={(event) => this.onChangehandler(event)} value={this.state.kg} />
                     </Grid>
                     <Grid item lg={6} xs={12}>
-                        <TextField className={classes.width} id="rate" variant='standard' label="விலை" placeHolder="rate" onChange={(event) => this.onChangehandler(event)} value={this.state.rate} />
+                        <TextField className={classes.width} inputProps={{ inputMode: 'numeric' }}  id="rate" variant='standard' label="விலை" placeHolder="rate" onChange={(event) => this.onChangehandler(event)} value={this.state.rate} />
                     </Grid>
                     <Grid lg={6} xs={12}>
                         <TextField className={classes.width} id="date" type='date' label="தேதி" onChange={(event) => this.onChangehandler(event)} value={this.state.date} />
