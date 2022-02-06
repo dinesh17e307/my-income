@@ -187,7 +187,10 @@ class Bidding extends Component {
 <LogoCard/>
 
             <Grid style={{ margin: '20px' }}>
-                <Grid style={{ fontSize: '20px', color: '#9c27b0' }}>{`Total Amount: ${this.state.totalAmount}`}</Grid>
+                <Grid style={{ fontSize: '20px', color: '#9c27b0',display:'flex',justifyContent:'space-between' }}>
+                    <p>{`Total Amount: ${this.state.totalAmount}`}</p>
+                    <p>{`Bid No: ${this.state.currentCount}`}</p>
+                </Grid>
                 <Grid xs={12} md={6} lg={4} style={{ marginBottom: '20px', marginTop: '20px' }}><NativeSelect variant="outlined" fullWidth onChange={(event) => this.SelectMember(event)}>
                     {this.state.members.map(item => {
                         return !item.taken && (<option value={item.name}>{item.name}</option>)
@@ -230,14 +233,19 @@ class Bidding extends Component {
                                 </>)
                             })}
                         </Grid>
-                        <Grid item xs={12} lg={12} style={{ border: '4px solid white', color: 'white', margin: '15px' }}>
+                        {console.log(this.state.commission)}
+                        {this.state.commission>0?(<Grid item xs={12} lg={12} style={{ border: '4px solid white', color: 'white', margin: '15px' }}>
                             <p >commission &#8377;{parseFloat(this.state.commission).toFixed(2)}</p>
                             <p>Amount to be paid &#8377;{parseFloat(this.state.balanceAmount).toFixed(2)}</p>
-                        </Grid>
+                        </Grid>):(<p style={{textAlign:'start',color:'white',fontSize:'14px',fontWeight:500}}>
+                            {this.state.members.map(item=>{
+                                return!item.taken && (<li>{item.name}</li>)
+                            })}
+                        </p>)}
                     </Card>
                 </Grid>
                 <Grid style={{ marginTop: '20px' }}>{this.state.showFinalVal && (
-                    <Card style={{ boxShadow: '10px 3px 10px #00897b', height: '560px', backgroundColor: '#ffd54f', textAlign: 'center' }}>
+                    <Card style={{ boxShadow: '10px 3px 10px #00897b', minHeight: '560px', backgroundColor: '#ffd54f', textAlign: 'center' }}>
                         <Grid container style={{ margin: '10px' }}>
                             <Grid lg={6} xs={6} style={{ fontSize: '18px', fontFamily: 'sans-serif', fontWeight: 500 }}>{this.state.LockBidMember}</Grid>
                             <Grid lg={6} xs={6} style={{ fontSize: '16px', fontFamily: 'sans-serif', fontWeight: 500 }}>&#8377;{this.state.LockBidAmount}</Grid>

@@ -124,12 +124,12 @@ class LoginPage extends PureComponent {
                })}>மஞ்சள் விலை</p >
                
             </Grid>
-            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",position:'absolute',bottom:0,color:'white'}}>
-                  <Grid container style={{fontSize:'20px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
-                     <p style={{fontFamily:'Roboto',fontWeight:500,fontSize:'15px'}}>More Details.....</p>
-                  <p><a href="dheena5880@gmail.com">contact: dheena5880@gmail.com</a></p>
+            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",position:'absolute',bottom:0,color:'white',}}>
+                  <Grid container style={{fontSize:'12px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
+                     <p style={{fontFamily:'Roboto',fontWeight:500,}}>More Details.....</p>
+                  <p ><a href="mailto: dheena5880@gmail.com">contact: dheena5880@gmail.com</a></p>
                   </Grid>
-                  <Grid style={{bottom:0,position:'absolute',width:'100%'}}>
+                  <Grid style={{bottom:0,position:'fixed',width:'100%'}}>
                          
                   <p style={{textAlign:"center"}}>&copy;goWeb@2021</p>
                          

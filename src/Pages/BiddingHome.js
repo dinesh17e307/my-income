@@ -269,10 +269,10 @@ class BiddingHome extends React.PureComponent {
 
                                                     return (
                                                         <Grid xs={12} lg={3} md={4}>
-                                                            <div style={{ display: 'flex', justifyContent: 'space-around', color: key.taken ? 'green' : '', fontWeight: key.taken ? 600 : 400 }}>
-                                                                <p >{key.name}</p>
-                                                                {key.taken ? (<p>&#8377;{key.amount}</p>) : (<p> </p>)}
-                                                                {key.taken ? (<p style={{ border: '4px solid lightgrey', backgroundColor: 'skyblue', width: '25px', textAlign: "center" }}>{key.Sno}</p>) : (<p> </p>)}
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between', color: key.taken ? 'green' : '', fontWeight: key.taken ? 600 : 400 }}>
+                                                                <p style={{width:'25px'}}>{key.name}</p>
+                                                               <p style={{marginTop:'5px'}}>{key.taken ? (<p>&#8377;{key.amount}</p>) : (<p> </p>)}</p> 
+                                                               <p style={{marginTop:'5px'}}>  {key.taken ? (<p style={{ border: '4px solid lightgrey', backgroundColor: 'skyblue', width: '25px', textAlign: "center" }}>{key.Sno}</p>) : (<p> </p>)}</p> 
                                                             </div>
                                                         </Grid>
                                                     )
