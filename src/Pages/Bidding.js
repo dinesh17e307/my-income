@@ -76,7 +76,7 @@ class Bidding extends Component {
             await this.setState({
                 userName: queryParams['?user'],
                 members: CurrentBid.members,
-                totalCount:CurrentBid.totalCount,
+                totalCount: CurrentBid.totalCount,
                 totalAmount: CurrentBid.totalAmount,
                 Nickname: CurrentBid.nickName,
                 indAmount: CurrentBid.indAmount,
@@ -123,8 +123,8 @@ class Bidding extends Component {
         }
 
         bidArray.push(currentObj)
-        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / ((parseInt(this.state.totalCount)-(parseInt(this.state.currentCount))))
-        console.log(bidArray[bidArray.length - 1].Amount,(parseInt(this.state.totalCount)-(parseInt(this.state.currentCount))) )
+        let commission = bidArray.length > 0 && bidArray[bidArray.length - 1].Amount / ((parseInt(this.state.totalCount) - (parseInt(this.state.currentCount))))
+        console.log(bidArray[bidArray.length - 1].Amount, (parseInt(this.state.totalCount) - (parseInt(this.state.currentCount))))
         let balanceAmount = this.state.indAmount - commission
         await this.setState({
             IndBidArray: data,
@@ -147,47 +147,65 @@ class Bidding extends Component {
         })
     }
     getFinalAmount = async () => {
+        if (this.state.currentCount !== parseInt(this.state.totalCount)) {
 
 
-        await this.setState({
-            LockBidAmount: bidArray[bidArray.length - 1].Amount,
-            LockBidMember: bidArray[bidArray.length - 1].name,
+            await this.setState({
+                LockBidAmount: bidArray[bidArray.length - 1].Amount,
+                LockBidMember: bidArray[bidArray.length - 1].name,
 
-        })
-        let data = this.state.members
-        for (let key of data) {
-            if (key.name === this.state.LockBidMember) {
-                key.amount = this.state.LockBidAmount
-                key.Sno = this.state.currentCount
-                key.taken = true
+            })
+            let data = this.state.members
+            for (let key of data) {
+                if (key.name === this.state.LockBidMember) {
+                    key.amount = this.state.LockBidAmount
+                    key.Sno = this.state.currentCount
+                    key.taken = true
 
+                }
+                else {
+                    console.log(key)
+                    if (!key.taken)
+                        key.amountArray = ['0']
+                }
             }
-            else {
-                console.log(key)
-                if (!key.taken)
-                    key.amountArray = ['0']
-            }
+            console.log('db', data)
+
+            const db = getDatabase();
+            set(ref(db, `bidding/${this.state.userName}/${this.state.Nickname}/members`), data);
+            this.setState({
+                showFinalVal: true
+            })
         }
-        console.log('db', data)
+        else {
+            let data = this.state.members
+            for (let key of data) {
 
-        const db = getDatabase();
-        set(ref(db, `bidding/${this.state.userName}/${this.state.Nickname}/members`), data);
-        this.setState({
-            showFinalVal: true
-        })
+                console.log(this.state.member[0])            
+                if (key.name === this.state.member[0]) {
+                    key.amount = 0
+                    key.Sno = this.state.currentCount
+                    key.taken = true
+
+                }
+            }
+            const db = getDatabase();
+            set(ref(db, `bidding/${this.state.userName}/${this.state.Nickname}/members`), data);
+            this.setState({
+                showFinalVal: true
+            })
+        }
     }
     finishThisBid = () => {
-
-
         this.props.history.push(`/bidHome?user=${this.state.userName}`)
     }
     render() {
         const { classes } = this.props;
         return (<>
-<LogoCard/>
+            <LogoCard />
 
             <Grid style={{ margin: '20px' }}>
-                <Grid style={{ fontSize: '20px', color: '#9c27b0',display:'flex',justifyContent:'space-between' }}>
+                <Grid style={{ fontSize: '20px', color: '#9c27b0', display: 'flex', justifyContent: 'space-between' }}>
                     <p>{`Total Amount: ${this.state.totalAmount}`}</p>
                     <p>{`Bid No: ${this.state.currentCount}`}</p>
                 </Grid>
@@ -234,12 +252,12 @@ class Bidding extends Component {
                             })}
                         </Grid>
                         {console.log(this.state.commission)}
-                        {this.state.commission>0?(<Grid item xs={12} lg={12} style={{ border: '4px solid white', color: 'white', margin: '15px' }}>
+                        {this.state.commission > 0 ? (<Grid item xs={12} lg={12} style={{ border: '4px solid white', color: 'white', margin: '15px' }}>
                             <p >commission &#8377;{parseFloat(this.state.commission).toFixed(2)}</p>
                             <p>Amount to be paid &#8377;{parseFloat(this.state.balanceAmount).toFixed(2)}</p>
-                        </Grid>):(<p style={{textAlign:'start',color:'white',fontSize:'14px',fontWeight:500}}>
-                            {this.state.members.map(item=>{
-                                return!item.taken && (<li>{item.name}</li>)
+                        </Grid>) : (<p style={{ textAlign: 'start', color: 'white', fontSize: '14px', fontWeight: 500 }}>
+                            {this.state.members.map(item => {
+                                return !item.taken && (<li>{item.name}</li>)
                             })}
                         </p>)}
                     </Card>
@@ -251,8 +269,8 @@ class Bidding extends Component {
                             <Grid lg={6} xs={6} style={{ fontSize: '16px', fontFamily: 'sans-serif', fontWeight: 500 }}>&#8377;{this.state.LockBidAmount}</Grid>
 
                         </Grid>
-                        
-<hr/>
+
+                        <hr />
                         <Grid lg={12} xs={12} style={{ fontSize: '18px', fontFamily: 'sans-serif', fontWeight: 700 }}>{'Taken'}</Grid>
 
 
@@ -263,7 +281,7 @@ class Bidding extends Component {
                                 )
                             })}</Grid>
                         </Grid>
-                        <hr/>
+                        <hr />
                         <Grid lg={12} xs={12} style={{ fontSize: '16px', fontFamily: 'sans-serif', fontWeight: 700 }}>{'NonTaken'}</Grid>
                         <Grid container lg={12} xs={12} style={{ fontSize: '16px', fontFamily: 'sans-serif', fontWeight: 500 }}>
                             <Grid> {this.state.members.map(names => {
