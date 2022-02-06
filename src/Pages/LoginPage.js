@@ -124,7 +124,7 @@ class LoginPage extends PureComponent {
                })}>மஞ்சள் விலை</p >
                
             </Grid>
-            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",position:'absolute',bottom:0,color:'white',}}>
+            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",bottom:0,color:'white',}}>
                   <Grid container style={{fontSize:'12px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
                      <p style={{fontFamily:'Roboto',fontWeight:500,}}>More Details.....</p>
                   <p ><a href="mailto: dheena5880@gmail.com">contact: dheena5880@gmail.com</a></p>
