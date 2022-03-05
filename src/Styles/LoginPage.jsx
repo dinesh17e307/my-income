@@ -1,6 +1,7 @@
 const LoginPageStyle = (theme) => ({
   outerContainer: {
-    marginTop: '30px',
+    margin:'40px !important',
+    
     [theme.breakpoints.down('xs')]: {
       marginTop: '80px',
 

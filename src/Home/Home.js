@@ -48,7 +48,12 @@ class Home extends Component {
             dev: true
         },
 
-
+        {
+            label: 'Banana',
+            url: '/banana',
+            bg:'/bid.jpeg',
+            dev: true
+        },
 
 
         ],
@@ -133,7 +138,7 @@ class Home extends Component {
                         3
                     }
                         lg={
-                            3
+                            2
                         }
                         onClick={
                             () => this.navigate(item.url)

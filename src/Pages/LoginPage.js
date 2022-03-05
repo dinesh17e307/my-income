@@ -74,22 +74,28 @@ class LoginPage extends PureComponent {
    render() {
       const { classes } = this.props;
       return (
+         <Grid style={{
+            
+            
+         }}>
          <div style={{
             width: '100%',
-            overflowX: 'hidden'
+            overflowX: 'hidden',
+            
          }}>
-            <Grid item lg={11} md={11} sm={11} xs={12} className={classes.outerContainer}>
+            <Grid item lg={8} md={8} sm={11} xs={12} className={classes.outerContainer}>
                <div style={{ textAlign: 'center', marginTop: '-60px' }}><img src="/tablogo.png" width='160px' height="160px" /></div>
+               <Grid style={{margin:'auto 5opx'}}>
                <Grid container className={classes.marginFields} item lg={12} xs={12}>
 
-                  <Grid lg={6} xs={12}>
+                  <Grid lg={4} xs={12} md={4}>
                      <TextField className={classes.width} variant='standard' id="UserName" size="small" label="UserName" type="email" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
                   </Grid>
                </Grid>
 
                <Grid container className={classes.marginFields} item lg={12} xs={12}>
 
-                  <Grid lg={6} xs={12} >
+                  <Grid lg={4} xs={12} md={4}>
                      <TextField className={classes.width} variant='standard' id="Password" size="small" type="password" placeHolder="password" label="Password" onChange={(event) => this.onChangehandler(event)} />
                   </Grid>
                </Grid>
@@ -101,15 +107,15 @@ class LoginPage extends PureComponent {
 
 
                   <Grid item lg={12} className={classes.outerButton} container>
-                     <Grid item lg={3} xs={6}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
+                     <Grid item lg={2} xs={6} md={2}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
 
-                     <Grid item lg={3} xs={6} > <Button className={classes.signupButton} variant='text' onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
+                     <Grid item lg={2} xs={6} md={2}> <Button className={classes.signupButton} variant='text' onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
 
                   </Grid>
                   {this.state.notVerified && (<Grid style={{ color: 'red' }}>Please verify link sent to mail</Grid>)}
 
                </Grid>
-
+               </Grid>
             </Grid>
             <Grid>
                <p style={{
@@ -124,7 +130,7 @@ class LoginPage extends PureComponent {
                })}>மஞ்சள் விலை</p >
                
             </Grid>
-            <Grid style={{backgroundColor:'black',height:"300px",width:"100%",bottom:0,color:'white',}}>
+            {/* <Grid style={{backgroundColor:'black',height:"300px",width:"100%",bottom:0, position:'absolute',color:'white',}}>
                   <Grid container style={{fontSize:'12px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
                      <p style={{fontFamily:'Roboto',fontWeight:500,}}>More Details.....</p>
                   <p ><a href="mailto: dheena5880@gmail.com">contact: dheena5880@gmail.com</a></p>
@@ -134,7 +140,7 @@ class LoginPage extends PureComponent {
                   <p style={{textAlign:"center"}}>&copy;goWeb@2021</p>
                          
                   </Grid>
-            </Grid>
+            </Grid> */}
             <Modal open={this.state.manjalOpen} ><Grid style={{ marginTop: '100px', textAlign: 'center' }}>
                <p><CancelOutlinedIcon style={{ color: "blue", width: "100px" }} onClick={() => this.setState({ manjalOpen: false })} /></p>
                <iframe src=" https://mserode.com/price.html" width="90%" height="400vh !important" frameBorder='0'></iframe>
@@ -146,6 +152,7 @@ class LoginPage extends PureComponent {
                <div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '70%' }} className="lds-dual-ring"></div>
             </Modal>)}</Hidden>
          </div>
+         </Grid>
       )
    }
 }

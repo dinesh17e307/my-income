@@ -187,7 +187,7 @@ export default function ColumnGroupingTable() {
     setopen(false)
   }
   return (
-    <>
+    <Grid >
      <LogoCard title={'Sambangi List'}/>
       <div>
         <Hidden smDown>{loading && (
@@ -198,7 +198,7 @@ export default function ColumnGroupingTable() {
         )}</Hidden>
       </div>
       {!loading && (<div style={{ padding: '20px' }}>
-        <Card style={{height:'200px'}}>
+        <Card style={{minHeight:'200px'}}>
           <Grid container style={{ padding: '20px' }}>
             <Grid xs={12} lg={5} style={{ marginBottom: "20px" }}>
               <Grid xs={12} lg={6}>FromDate</Grid>
@@ -206,12 +206,13 @@ export default function ColumnGroupingTable() {
             <Grid xs={12} lg={5} style={{ marginBottom: "20px" }}>
             <Grid xs={12} lg={6}>ToDate</Grid>
             <TextField className={FormStyle.width} id="date" type='date' fullWidth  onChange={(event)=>setTodate(event.target.value)} value={Todate} /></Grid>
-            {WeekIncome>0&&(<Grid xs={12} lg={6} style={{ marginBottom: "20px",fontWeight:400,fontFamily:"Roboto" }}>
-             Week Income:   <span style={{color:"blue",fontWeight:600,fontFamily:'Roboto'}}>&#8377;{WeekIncome}</span>
-            </Grid>)}
+            <Grid xs={12} lg={6}> {WeekIncome>0&&(<Grid xs={12} lg={6} style={{ marginBottom: "20px",fontWeight:400,fontFamily:"Roboto" }}>
+             Week Income:   <span style={{color:"blue",fontWeight:600,fontFamily:'Roboto'}}>&#8377;{WeekIncome}</span></Grid>
+            )}
+          </Grid>
           </Grid>
         </Card>
-        <Hidden smDown>
+        <Hidden smDown style={{margin:'auto 50px'}}>
           <TableContainer sx={{ maxHeight: 640 }}>
             <Table aria-label="sticky table">
               <TableHead>
@@ -330,6 +331,6 @@ export default function ColumnGroupingTable() {
 
         </Dialog>
       )}
-    </>
+    </Grid>
   );
 }

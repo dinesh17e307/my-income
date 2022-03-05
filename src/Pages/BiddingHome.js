@@ -233,11 +233,13 @@ class BiddingHome extends React.PureComponent {
     }
     getAllBiddingArray = () => {
         return (
-            <>
+            <Grid container style={{margin:'auto 30px'}}>
             
                 {!this.state.loading && Object.keys(this.state.bidArray).map(items => {
                     var data = this.state.bidArray[items]
+                    
                     return (
+                        <Grid lg={5} md={5} xs={12}>
                         <Card style={{ margin: '10px', boxShadow: '10px 3px 10px #00897b', minHeight: '160px', backgroundColor: '#bbdefb', marginBottom: '15px' }} onClick={() => this.navigateToStart(data)} >
                             <Grid container style={{ color: 'blue', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
                                 <Grid item xs={5} lg={5} >{'Start Date'}</Grid>
@@ -268,7 +270,7 @@ class BiddingHome extends React.PureComponent {
                                                 {data.members.map(key => {
 
                                                     return (
-                                                        <Grid xs={12} lg={3} md={4}>
+                                                        <Grid xs={12} lg={6} md={6}>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', color: key.taken ? 'green' : '', fontWeight: key.taken ? 600 : 400 }}>
                                                                 <p style={{width:'25px'}}>{key.name}</p>
                                                                <p style={{marginTop:'5px'}}>{key.taken ? (<p>&#8377;{key.amount}</p>) : (<p> </p>)}</p> 
@@ -283,10 +285,11 @@ class BiddingHome extends React.PureComponent {
                                 </Accordion>
                             </Grid>
                         </Card>
+                        </Grid>
                     )
                 })}
                 {/* {this.state.bidArray.length==0&&(<img src="https://cdn4.vectorstock.com/i/thumb-large/07/93/no-result-data-not-found-concept-angry-man-vector-39720793.jpg"/>)} */}
-            </>
+            </Grid>
         )
     }
     render() {
