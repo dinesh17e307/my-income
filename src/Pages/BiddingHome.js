@@ -233,7 +233,7 @@ class BiddingHome extends React.PureComponent {
     }
     getAllBiddingArray = () => {
         return (
-            <Grid container style={{margin:'auto 30px'}}>
+            <Grid container style={{margin:'auto'}}>
             
                 {!this.state.loading && Object.keys(this.state.bidArray).map(items => {
                     var data = this.state.bidArray[items]
