@@ -8,7 +8,7 @@ import Login from './Pages/LoginPage'
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from "history";
-import { Card } from '@material-ui/core';
+import { Card ,Grid} from '@material-ui/core';
 import MilkHome from './Home/MilkHome';
 import AddListMilk from './Pages/AddListMilk';
 import ShowListMilk from './Pages/ShowListMilk';
@@ -19,6 +19,7 @@ import Bidding from './Pages/Bidding';
 import Users from './Pages/Users';
 import Success from './Pages/Success';
 import BiddingHome from './Pages/BiddingHome';
+import SimpleReactFooter from "simple-react-footer";
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
@@ -44,6 +45,46 @@ class App extends Component {
     let queryParams = window.location.search;
     queryParams = querystring.parse(queryParams);
     console.log(queryParams, Object.keys(queryParams).length > 0)
+    const description = "A Easiest portal for farmer to update their difficult work easily, stay touched with us to get more harder to make easy Passion towars morden world" 
+    const title = "Goweb";
+  const columns = [
+    {
+        title: "Resources",
+        resources: [
+            {
+                name: "About",
+                link: "/about"
+            },
+            
+        ]
+    },
+    {
+        title: "Legal",
+        resources: [
+            {
+                name: "Privacy",
+                link: "/privacy"
+            },
+            {
+                name: "Terms",
+                link: "/terms"
+            }
+        ]
+    },
+    {
+        title: "Visit",
+        resources: [
+            {
+                name: "Locations",
+                link: "/locations"
+            },
+            {
+                name: "Culture",
+                link: "/culture"
+            }
+        ]
+    }
+ ];
     return (
       <>
         
@@ -71,6 +112,26 @@ class App extends Component {
           </Switch>
 
         </Router>
+        <Grid style={{
+    position: 'relative',
+    minHeight: "200px",
+    bottom: "-160px"}}>
+        <SimpleReactFooter 
+    description={description} 
+    title={title}
+    columns={columns}
+    linkedin="dinesh-sellappan-295a20191"
+    facebook="dinesh.sellappan"
+    twitter="dinesh.sellappan"
+    instagram="dinesh.sellappan"
+    youtube="UCFt6TSF464J8K82xeA?"
+    pinterest="fluffy_cats_collections"
+    copyright="Goweb-2021"
+    iconColor="purple"
+    backgroundColor="bisque"
+    fontColor="black"
+    copyrightColor="darkgrey"
+ />;</Grid>
       </>
     );
   }
