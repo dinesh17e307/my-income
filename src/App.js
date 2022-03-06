@@ -86,7 +86,8 @@ class App extends Component {
     }
  ];
     return (
-      <>
+      <div className='page-container'>
+      <Grid className='wrap-content'>
         
         <Router history={history}>
           <Switch>
@@ -111,11 +112,8 @@ class App extends Component {
             <Route component={Users} path="/users" />
           </Switch>
 
-        </Router>
-        <Grid style={{
-    position: 'relative',
-    minHeight: "200px",
-    bottom: "-160px"}}>
+        </Router></Grid>
+        
         <SimpleReactFooter 
     description={description} 
     title={title}
@@ -131,8 +129,8 @@ class App extends Component {
     backgroundColor="bisque"
     fontColor="black"
     copyrightColor="darkgrey"
- />;</Grid>
-      </>
+ />
+      </div>
     );
   }
 }
