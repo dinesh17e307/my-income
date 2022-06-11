@@ -92,12 +92,13 @@ this.setState({
     
     uploadWeight = async (item) => {
         let totArr=[],sesArr=[{name:'ijihh'}]
-        let currentObj = {
+        if(this.state.weight!='' &&this.state.noItem!=''){        let currentObj = {
            weight:this.state.weight,
            noItem:this.state.noItem
         }
         sesArr=window.sessionStorage.getItem('weightdet')?JSON.parse(window.sessionStorage.getItem('weightdet')):[]
         console.log(sesArr)
+
 totArr=[...sesArr,currentObj]
        
 console.log("ALLL",totArr)
@@ -114,6 +115,7 @@ this.setState({
     data:totArr,
     totalWeight:total
 })
+        }
 
     }
   handleFilesChange = async(files) => {
