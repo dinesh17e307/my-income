@@ -106,10 +106,10 @@ console.log("ALLL",totArr)
         ))
         let total=0
         totArr.map(item=>{
-            total=+parseInt(item.weight)
+            total=total+parseInt(item.weight)
         })
 this.setState({
-    noItem:'',
+    
     weight:'',
     data:totArr,
     totalWeight:total
