@@ -29,7 +29,11 @@ class AllBills extends Component{
         data:[],
         weight:'',
         noItem:'4',
-        totalWeight:''
+        totalWeight:'',
+        extra:'',
+        status:'1',
+        rate:''
+        
     }
     openModal=(item)=>{
 this.setState({
@@ -126,9 +130,10 @@ this.setState({
   })
   }
   uploadBills=()=>{
+      let weight=parseInt(this.state.weight)
      let data={
          noofitem:this.state.noItem,
-         weight:this.state.weight,
+         weight:this.state.status=='2'?weight/2:weight
          
      }
       const db = getDatabase();
@@ -146,6 +151,11 @@ this.setState({
             [event.target.id]: event.target.value
         })
     }
+    showFinal=()=>{
+        this.setState({
+            openModal:true
+        })
+    }
     componentWillUnmount(){
         window.sessionStorage.clear('weightdet')
     }
@@ -158,7 +168,7 @@ this.setState({
             <LogoCard title={'Banana'}/>
            
                 <div style={{margin:'20px'}}>
-                    <Grid container>
+                    <Grid container style={{maxHeight:'600px'}}>
                     <Grid item xs={12} sm={12} lg={2} md={2} className={classes.fieldWidth} >
 <NativeSelect variant="outlined" fullWidth onChange={ this.handleChange} id="noItem" value={this.state.noItem}>
     
@@ -167,7 +177,14 @@ this.setState({
                     })}
 </NativeSelect>
                     </Grid>
-
+                    <Grid item xs={12} sm={12} lg={2} md={2} className={classes.fieldWidth} >
+<NativeSelect variant="outlined" fullWidth onChange={ this.handleChange} id="status" value={this.state.status}>
+    
+                    {['1','2'].map(item => {
+                        return <option value={item}>{item}</option>
+                    })}
+</NativeSelect>
+                    </Grid>
                 <Grid item  xs={12} sm={12} lg={2} md={2} className={classes.fieldWidth}>
 <TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="weight" variant='standard' value={this.state.weight} onChange={this.handleChange} style={{height:'40px'}}/>
                 </Grid>
@@ -211,11 +228,33 @@ this.setState({
                                }
                            </TableBody>
                        </Table>
-<Grid>
-    <p>Total Weight:{this.state.totalWeight}</p>
-</Grid>
-                   </Grid>
-   
+<Grid container className={classes.content}>
+    <Grid item xs={5} md={2}>Total Weight:<span style={{color:"blue"}}>&#8377;{this.state.totalWeight}</span></Grid>
+    <Grid item xs={3} md={2}> 
+
+                  <TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="extra" variant='standard' value={this.state.extra} onChange={this.handleChange} style={{height:'40px'}}/>
+               </Grid>
+               <Grid item xs={4} md={2}>
+                   reduced
+               </Grid>
+               <Grid item xs={6} md={2}>
+final weight:<span style={{color:"blue"}}>&#8377;{parseInt(this.state.totalWeight)-this.state.extra}</span>
+               </Grid>
+               <Grid item xs={12} md={12} style={{marginTop:'15px'}}>
+                  <Button fullWidth variant='outlined' color="primary"  onClick={this.showFinal}>Okay</Button>
+               </Grid>
+                </Grid>
+                </Grid>
+    <Modal open={this.state.openModal} ><Grid style={{ marginTop: '100px', textAlign: 'center' }}>
+               <Card>
+               
+                    {this.state.totalWeight}
+                    <TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="rate" variant='standard' value={this.state.rate} onChange={this.handleChange} style={{height:'40px'}}/>
+{parseInt(this.state.totalWeight)*parseInt(this.state.rate)}
+               
+               </Card>
+                </Grid>
+            </Modal>
     </div>
            
            
