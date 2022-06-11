@@ -144,6 +144,9 @@ this.setState({
             [event.target.id]: event.target.value
         })
     }
+    componentWillUnmount(){
+        window.sessionStorage.clear('weightdet')
+    }
     render(){
         const{classes}=this.props;
         const{data}=this.state;
@@ -164,7 +167,7 @@ this.setState({
                     </Grid>
 
                 <Grid item  xs={12} sm={12} lg={2} md={2} className={classes.fieldWidth}>
-<TextField  inputMode='numeric'fullWidth id="weight" variant='standard' value={this.state.weight} onChange={this.handleChange} style={{height:'40px'}}/>
+<TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="weight" variant='standard' value={this.state.weight} onChange={this.handleChange} style={{height:'40px'}}/>
                 </Grid>
                <Grid item xs={12} sm={12} lg={2} md={2} className={classes.fieldWidth}>
                     <Button fullWidth variant='outlined' color="primary"  onClick={this.uploadWeight}>+ Add</Button>
