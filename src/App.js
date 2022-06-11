@@ -20,6 +20,7 @@ import Users from './Pages/Users';
 import Success from './Pages/Success';
 import BiddingHome from './Pages/BiddingHome';
 import SimpleReactFooter from "simple-react-footer";
+import AllBills from './Pages/AllBills';
 const querystring = require('querystring');
 const history = createBrowserHistory();
 class App extends Component {
@@ -110,26 +111,35 @@ class App extends Component {
             <Route component={Bidding} path="/startBid" />
             <Route component={BiddingHome} path="/bidHome" />
             <Route component={Users} path="/users" />
+            <Route component={AllBills} path="/banana" />
           </Switch>
 
         </Router></Grid>
-        
-        <SimpleReactFooter 
-    description={description} 
-    title={title}
-    columns={columns}
-    linkedin="dinesh-sellappan-295a20191"
-    facebook="dinesh.sellappan"
-    twitter="dinesh.sellappan"
-    instagram="dinesh.sellappan"
-    youtube="UCFt6TSF464J8K82xeA?"
-    pinterest="fluffy_cats_collections"
-    copyright="Goweb-2021"
-    iconColor="purple"
-    backgroundColor="bisque"
-    fontColor="black"
-    copyrightColor="darkgrey"
- />
+        <div className='footer'>
+        <div style={{flex:1}}>
+          <Grid container style={{display:'flex',justifyContent:'space-around'}}>
+          
+             <Grid item lg={3} xs={3}>
+                  Resources
+                  
+             </Grid>
+             <Grid item lg={3} xs={3}>
+                Term and policy
+            </Grid>
+          <Grid item lg={3} xs={3}>
+               More About
+          </Grid>
+          
+          </Grid>
+          </div>
+          <Grid style={{textAlign:'center'}}>
+            Stay connected with us
+            </Grid>
+           
+            <Grid style={{textAlign:'center'}}>
+              &copy;Goweb-2021
+            </Grid>
+        </div>
       </div>
     );
   }
