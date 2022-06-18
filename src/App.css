@@ -25,7 +25,7 @@ overflow-x: hidden;
 
   .footer{
   background-color: bisque;
-  height: 120px;
+  min-height: 120px;
      }
 
 

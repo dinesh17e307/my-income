@@ -117,27 +117,21 @@ class App extends Component {
         </Router></Grid>
         <div className='footer'>
         <div style={{flex:1}}>
-          <Grid container style={{display:'flex',justifyContent:'space-around'}}>
-          
-             <Grid item lg={3} xs={3}>
-                  Resources
-                  
+          <Grid container style={{display:'flex',justifyContent:'flex-start'}}>
+          <p style={{fontWeight:500,color:'blue'}}>Product of</p>
+             <Grid item lg={12} xs={12}>
+               <img style={{ marginTop: '-55px' }} src='/logo1.png' width={200} />
+                
              </Grid>
-             <Grid item lg={3} xs={3}>
-                Term and policy
-            </Grid>
-          <Grid item lg={3} xs={3}>
-               More About
-          </Grid>
-          
+           
           </Grid>
           </div>
-          <Grid style={{textAlign:'center'}}>
-            Stay connected with us
+          <Grid style={{textAlign:'center',textDecoration:'none'}}>
+           Drop <a style={{textDecoration:'none'}} href="mailto:someone@example.com">mail</a>
             </Grid>
            
             <Grid style={{textAlign:'center'}}>
-              &copy;Goweb-2021
+              &copy;Team Germinate
             </Grid>
         </div>
       </div>

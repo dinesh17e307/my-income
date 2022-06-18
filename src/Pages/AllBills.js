@@ -32,7 +32,8 @@ class AllBills extends Component{
         totalWeight:'',
         extra:'',
         status:'1',
-        rate:''
+        rate: '',
+        totalItem:''
         
     }
     openModal=(item)=>{
@@ -95,9 +96,10 @@ this.setState({
     
     
     uploadWeight = async (item) => {
-        let totArr=[],sesArr=[{name:'ijihh'}]
+        let totArr = [], sesArr = [{ name: 'ijihh' }]
+        let weight = this.state.weight;
         if(this.state.weight!='' &&this.state.noItem!=''){        let currentObj = {
-           weight:this.state.weight,
+           weight:this.state.status=='2'?weight/2:weight,
            noItem:this.state.noItem
         }
         sesArr=window.sessionStorage.getItem('weightdet')?JSON.parse(window.sessionStorage.getItem('weightdet')):[]
@@ -111,13 +113,18 @@ console.log("ALLL",totArr)
         ))
         let total=0
         totArr.map(item=>{
-            total=total+parseInt(item.weight)
+            total=total+parseFloat(item.weight)
+        })
+    let totalWeg=0
+            totArr.map(item=>{
+            totalWeg=totalWeg+parseInt(item.noItem)
         })
 this.setState({
     
     weight:'',
     data:totArr,
-    totalWeight:total
+    totalWeight: total,
+    totalItem:totalWeg
 })
         }
 
@@ -229,16 +236,16 @@ this.setState({
                            </TableBody>
                        </Table>
 <Grid container className={classes.content}>
-    <Grid item xs={5} md={2}>Total Weight:<span style={{color:"blue"}}>&#8377;{this.state.totalWeight}</span></Grid>
+    <Grid item xs={12} md={5}>Total Weight:<span style={{color:"blue"}}>&#8377;{this.state.totalWeight}</span></Grid>
     <Grid item xs={3} md={2}> 
 
                   <TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="extra" variant='standard' value={this.state.extra} onChange={this.handleChange} style={{height:'40px'}}/>
                </Grid>
                <Grid item xs={4} md={2}>
-                   reduced
+                  <span style={{color:'red'}}>{this.state.noItem} </span>reduced
                </Grid>
                <Grid item xs={6} md={2}>
-final weight:<span style={{color:"blue"}}>&#8377;{parseInt(this.state.totalWeight)-this.state.extra}</span>
+final weight:<span style={{color:"green"}}>&#8377;{this.state.extra?this.state.totalWeight-(this.state.extra*parseInt(this.state.totalItem)):'0'}</span>
                </Grid>
                <Grid item xs={12} md={12} style={{marginTop:'15px'}}>
                   <Button fullWidth variant='outlined' color="primary"  onClick={this.showFinal}>Okay</Button>
@@ -246,11 +253,26 @@ final weight:<span style={{color:"blue"}}>&#8377;{parseInt(this.state.totalWeigh
                 </Grid>
                 </Grid>
     <Modal open={this.state.openModal} ><Grid style={{ marginTop: '100px', textAlign: 'center' }}>
-               <Card>
-               
-                    {this.state.totalWeight}
-                    <TextField  inputProps={{ inputMode: 'numeric' }} fullWidth id="rate" variant='standard' value={this.state.rate} onChange={this.handleChange} style={{height:'40px'}}/>
-{parseInt(this.state.totalWeight)*parseInt(this.state.rate)}
+                        <Card style={{ height: '300px', margin: '10px 20px' }}>
+                            <Grid container>
+                                <Grid item xs={12}style={{display:'flex',justifyContent:'space-evenly'}}>
+                                    <p style={{color:'green',fontWeight:500}}>
+                                        Total Weight  </p> 
+                                    <p>{this.state.totalWeight}</p>
+                                    <p>Kg</p>
+                                </Grid>
+                                <Grid item xs={12}></Grid>
+                                <Grid item xs={6} style={{color:'blue',fontWeight:500}}>Rate</Grid>
+                                <Grid xs={6}  item><TextField inputProps={{ inputMode: 'numeric' }} fullWidth id="rate" variant='standard' value={this.state.rate} onChange={this.handleChange} style={{ height: '40px' }} /></Grid>
+                                <Grid item xs={6}>Total Amount</Grid>
+                                <Grid item xs={6} style={{ color: "blue" }}>&#8377;{this.state.rate ? parseFloat(this.state.totalWeight) * parseFloat(this.state.rate) : '0'}</Grid>
+                                <Grid item xs={12}style={{textAlign:'center'}}>
+                                    <h3 style={{color:'green',fontWeight:500,textAlign:'center'}}>
+                                    Thanks for showing interest !!</h3>
+                                </Grid>
+                    </Grid>
+                    
+
                
                </Card>
                 </Grid>
