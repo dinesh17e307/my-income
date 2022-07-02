@@ -17,7 +17,7 @@ class LogoCard extends Component {
             <Grid container className={classes.margin}style={{ backgroundColor: 'white', width: '100%', height: '70px'}}>
                 
                     <Grid item>
-                    <img src="/tablogo.png" width='60px' height="60px" />
+                    <img src="/comlogo1.png" width='160px' height="90px" />
                     </Grid>
                     <Grid item style={{fontWeight:600,fontFamily:'Roboto',fontSize:'18px',marginTop:'20px'}}>
                        {this.props.title}

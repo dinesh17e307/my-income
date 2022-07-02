@@ -118,7 +118,7 @@ class App extends Component {
         <div className='footer'>
         <div style={{flex:1}}>
           <Grid container style={{display:'flex',justifyContent:'flex-start'}}>
-          <p style={{fontWeight:500,color:'blue'}}>Product of</p>
+         
              <Grid item lg={12} xs={12}>
                <img style={{ marginTop: '-55px' }} src='/logo1.png' width={200} />
                 

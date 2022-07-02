@@ -24,7 +24,7 @@ const LoginPageStyle = (theme) => ({
   loginButton: {
 
     borderRadius: '5px',
-    marginRight: '10px',
+  
     width: '120px',
     height: '40px',
     color: '#d500f9 !important',
@@ -41,7 +41,7 @@ const LoginPageStyle = (theme) => ({
   },
   signupButton: {
     borderRadius: '5px',
-    marginRight: '10px',
+   
     width: '120px',
     height: '40px',
     color: '#d500f9 !important',

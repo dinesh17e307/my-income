@@ -1,11 +1,28 @@
 import React, { Component, PureComponent } from 'react';
-import { Grid, TextField, Button, Modal, Hidden } from '@material-ui/core'
+import { Grid, TextField, Button, Modal, Hidden,Card,CardContent,Snackbar, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import LoginPageStyle from '../Styles/LoginPage'
 import axios from 'axios'
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Slider from 'react-slick';
 import Carousel from './Carousel';
+import { getDatabase, ref, child, set, get } from "firebase/database";
+import { initializeApp } from "firebase/app";
+const BannerImages = ['/logo1.png', '/milk.jpg']
+var todaysNews = [{ title: 'hey', news: 'welcome' }, { title: 'hey', news: 'welcome' }, { title: 'hey', news: 'welcome' }, { title: 'hey', news: 'welcome' }]
+const firebaseConfig = {
+  apiKey: "AIzaSyAAI3gpzWCvFAn6O2WS1FkrZEPG2_ykHcA",
+  authDomain: "my-income-fbd33.firebaseapp.com",
+  databaseURL: "https://my-income-fbd33-default-rtdb.firebaseio.com",
+  projectId: "my-income-fbd33",
+  storageBucket: "my-income-fbd33.appspot.com",
+  messagingSenderId: "571957745936",
+  appId: "1:571957745936:web:99190cd33c602ad45eed95"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 class LoginPage extends PureComponent {
    state = {
       errMsg: '',
@@ -14,22 +31,33 @@ class LoginPage extends PureComponent {
       UserName: '',
       loading: false,
       manjalOpen: false,
-      notVerified: false
+      notVerified: false,
+      todaysNews:[],
 
    }
 
    componentDidMount = async () => {
-      // var userName = localStorage.getItem('userName')
-      // var password = localStorage.getItem('password')
-      // console.log(userName, password)
-      // await this.setState({
-      //    UserName: userName,
-      //    password: password,
-      // })
-      // if (userName !== '' && password !== '') {
-      //    console.log(this.state)
-      //    this.login()
-      // }
+     console.log('getting')
+       const dbRef = ref(getDatabase());
+      await get(child(dbRef, `TodayNews`)).then((snapshot) =>
+      {
+         console.log(snapshot.exists(),snapshot.val())
+            if (snapshot.exists()) {
+                this.setState({
+                    todaysNews: snapshot.val()
+                })
+                console.log(snapshot.val());
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
+        this.setState({
+           loading: false,
+           
+        })
+      console.log(this.state.todaysNews)
    }
 
    onChangehandler = (event) => {
@@ -37,6 +65,18 @@ class LoginPage extends PureComponent {
          [event.target.id]: event.target.value
       })
    }
+   renderSlides = () => {
+    const { classes } = this.props;
+    return BannerImages.map((image, indx) => (
+      <div>
+        <img width={200}
+          key={indx}
+          className={classes.bannerWidth}
+          src={image}
+        />
+      </div>
+    ));
+  };
    login = () => {
       this.setState({
          loading: true
@@ -74,28 +114,28 @@ class LoginPage extends PureComponent {
    render() {
       const { classes } = this.props;
       return (
-         <Grid style={{
-            
-            
-         }}>
-         <div style={{
+         <Grid container>
+         <Grid item lg={6} md={6} xs={12} sm={12} style={{
             width: '100%',
             overflowX: 'hidden',
             
-         }}>
+            }}>
+               <Grid container>
             <Grid item lg={8} md={8} sm={11} xs={12} className={classes.outerContainer}>
-               <div style={{ textAlign: 'center', marginTop: '-60px' }}><img src="/tablogo.png" width='160px' height="160px" /></div>
-               <Grid style={{margin:'auto 5opx'}}>
+               <div style={{  marginTop: '-60px' }}><img src="/comlogo1.png" width='260px' height="160px" /></div>
+               <Grid style={{margin:'auto 5px',width:'fit-content'}}>
+                     <Card >
+                  <CardContent>
                <Grid container className={classes.marginFields} item lg={12} xs={12}>
 
-                  <Grid lg={4} xs={12} md={4}>
+                  <Grid lg={12} xs={12} md={12}>
                      <TextField className={classes.width} variant='standard' id="UserName" size="small" label="UserName" type="email" placeHolder="(e.g) dinesh@gmail.com" onChange={(event) => this.onChangehandler(event)} />
                   </Grid>
                </Grid>
 
                <Grid container className={classes.marginFields} item lg={12} xs={12}>
 
-                  <Grid lg={4} xs={12} md={4}>
+                  <Grid lg={12} xs={12} md={12}>
                      <TextField className={classes.width} variant='standard' id="Password" size="small" type="password" placeHolder="password" label="Password" onChange={(event) => this.onChangehandler(event)} />
                   </Grid>
                </Grid>
@@ -106,30 +146,28 @@ class LoginPage extends PureComponent {
 
 
 
-                  <Grid item lg={12} className={classes.outerButton} container>
-                     <Grid item lg={2} xs={6} md={2}><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
+                  <Grid  style={{display:'flex',justifyContent:'space-between'}} >
+                     <Grid item ><Button disabled={!(this.state.UserName !== '' && this.state.Password !== '')} className={classes.loginButton} onClick={this.login}>Login</Button></Grid>
 
-                     <Grid item lg={2} xs={6} md={2}> <Button className={classes.signupButton} variant='text' onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
+                     <Grid item > <Button className={classes.signupButton} variant='text' onClick={()=>this.props.history.push('/signup')}>Sign Up</Button></Grid>
 
-                  </Grid>
-                  {this.state.notVerified && (<Grid style={{ color: 'red' }}>Please verify link sent to mail</Grid>)}
+                              </Grid>
+                              
+                              {this.state.notVerified && (<Grid style={{ color: 'red' }}><Snackbar open autoHideDuration={6000}>
+                                 Please verify link sent to mail
+                              </Snackbar></Grid>)}
 
+                           </Grid>
+                           </CardContent>
+                  </Card>
                </Grid>
-               </Grid>
-            </Grid>
-            <Grid>
-               <p style={{
-                  fontSize: '16px',
-                  fontFamily: 'Roboto',
-                  fontWeight: 700,
-                  textAlign: 'center',
-                  color: '#9575cd',
-                  FontStyle: 'normal'
-               }} onClick={() => this.setState({
-                  manjalOpen: true
-               })}>மஞ்சள் விலை</p >
+                     </Grid>
+                     
+            
                
-            </Grid>
+               
+                 
+                  
             {/* <Grid style={{backgroundColor:'black',height:"300px",width:"100%",bottom:0, position:'absolute',color:'white',}}>
                   <Grid container style={{fontSize:'12px',fontFamily:'Roboto',FontStyle:'italic',display:'block'}} >
                      <p style={{fontFamily:'Roboto',fontWeight:500,}}>More Details.....</p>
@@ -150,8 +188,22 @@ class LoginPage extends PureComponent {
             </Modal>)}</Hidden>
             <Hidden mdUp>{this.state.loading && (<Modal open>
                <div style={{ textAlign: 'center', marginLeft: '40%', marginTop: '70%' }} className="lds-dual-ring"></div>
-            </Modal>)}</Hidden>
-         </div>
+                  </Modal>)}</Hidden>
+                  </Grid>
+            </Grid>
+            <Grid item lg={5} xs={12} sm={12} md={5} style={{margin:'50px auto'}}>
+               <div style={{  height: '100%' }}>
+                  {this.state.todaysNews.map(item => (<Accordion>
+                     
+                     <AccordionSummary>
+                          <span style={{color:'blue',fontWeight:500}}>{item.title}</span>
+                     </AccordionSummary>
+                     <AccordionDetails>
+                          <span style={{fontWeight:500}}> {item.message}</span>
+                     </AccordionDetails>
+                  </Accordion>))}
+                  </div>
+            </Grid>
          </Grid>
       )
    }
