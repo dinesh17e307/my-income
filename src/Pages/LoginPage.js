@@ -5,7 +5,7 @@ import axios from 'axios'
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Slider from 'react-slick';
+
 import Carousel from './Carousel';
 import { getDatabase, ref, child, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
@@ -37,11 +37,12 @@ class LoginPage extends PureComponent {
    }
 
    componentDidMount = async () => {
-     console.log('getting')
+   
        const dbRef = ref(getDatabase());
+       console.log('getting',dbRef)
       await get(child(dbRef, `TodayNews`)).then((snapshot) =>
       {
-         console.log(snapshot.exists(),snapshot.val())
+         console.log(snapshot.exists(),snapshot.val(),'hiiih')
             if (snapshot.exists()) {
                 this.setState({
                     todaysNews: snapshot.val()
@@ -192,13 +193,14 @@ class LoginPage extends PureComponent {
                   </Grid>
             </Grid>
             <Grid item lg={5} xs={12} sm={12} md={5} style={{margin:'50px auto'}}>
+            <h2 style={{color:'green'}}>Today's News</h2>
                <div style={{  height: '100%' }}>
-                  {this.state.todaysNews.map(item => (<Accordion>
+                  {this.state.todaysNews.map((item,index) => (<Accordion expanded={index==0}>
                      
-                     <AccordionSummary>
+                     <AccordionSummary >
                           <span style={{color:'blue',fontWeight:500}}>{item.title}</span>
                      </AccordionSummary>
-                     <AccordionDetails>
+                     <AccordionDetails open>
                           <span style={{fontWeight:500}}> {item.message}</span>
                      </AccordionDetails>
                   </Accordion>))}

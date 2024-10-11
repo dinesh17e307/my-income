@@ -235,21 +235,21 @@ class BiddingHome extends React.PureComponent {
         return (
             <Grid container style={{margin:'auto'}}>
             
-                {!this.state.loading && Object.keys(this.state.bidArray).map(items => {
+                {!this.state.loading && this.state.bidArray?.length> 0 && Object.keys(this.state.bidArray)?.map(items => {
                     var data = this.state.bidArray[items]
                     
                     return (
                         <Grid lg={5} md={5} xs={12}>
-                        <Card style={{ margin: '10px', boxShadow: '10px 3px 10px #00897b', minHeight: '160px', backgroundColor: '#bbdefb', marginBottom: '15px' }} onClick={() => this.navigateToStart(data)} >
-                            <Grid container style={{ color: 'blue', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
+                        <Card style={{ margin: '10px', boxShadow: '10px 3px 10px #00897b', minHeight: '160px', backgroundColor: 'lightgoldenrodyellow', marginBottom: '15px' }} onClick={() => this.navigateToStart(data)} >
+                            <Grid container style={{ color: 'black', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
                                 <Grid item xs={5} lg={5} >{'Start Date'}</Grid>
                                 <Grid item xs={5} lg={5}>{data.startDate}</Grid>
                                 <Grid item xs={2} lg={2}><DeleteIcon style={{color:"red"}} onClick={( event)=>this.deleteBid(data.nickName, event)}/></Grid>
                             </Grid>
-                            <Grid container style={{ color: 'red', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
-                                <Grid item xs={6} lg={6}>{`NickName: ${data.nickName}`}</Grid>
-                                <Grid item xs={6} lg={6}>{`TotalCount: ${data.totalCount}`}</Grid>
-                                <Grid item xs={6} lg={6}>{`TotalAmount: ${data.totalAmount}`}</Grid>
+                            <Grid container style={{ color: 'black', margin: '10px', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
+                                <Grid item xs={6} lg={6}>{`Bid Name: ${data.nickName}`}</Grid>
+                                <Grid item xs={6} lg={6}>{`Total Count: ${data.totalCount}`}</Grid>
+                                <Grid item xs={6} lg={6}>{`Total Amount: ${data.totalAmount}`}</Grid>
 
                             </Grid>
                             <Grid style={{ margin: '10px' }}>
@@ -267,7 +267,7 @@ class BiddingHome extends React.PureComponent {
                                         <Typography>
                                             <Grid container>
 
-                                                {data.members.map(key => {
+                                                {data.members?.map(key => {
 
                                                     return (
                                                         <Grid xs={12} lg={6} md={6}>
